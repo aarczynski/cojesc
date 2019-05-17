@@ -32,3 +32,21 @@ dependencies {
     testImplementation "org.spockframework:spock-spring:$spockVersion"
     testImplementation "org.spockframework:spock-core:$spockVersion"
 }
+
+task ensureCredentialsExist {
+    doFirst {
+        if (!new File('src/main/resources/credentials.yaml').exists()) {
+            throw new IllegalStateException(
+                    """\
+                    Facebook API credentials not found. 
+					Please create credential.yaml file in resurces folder
+					It must contain following keys:
+					- cojesc.http.client.facebook.appId
+					- cojesc.http.client.facebook.secret
+					""".stripIndent()
+            )
+        }
+    }
+}
+
+assemble.dependsOn(ensureCredentialsExist)
