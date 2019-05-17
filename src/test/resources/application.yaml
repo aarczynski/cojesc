@@ -1,4 +1,1 @@
-cojesc.http.client:
-  facebook:
-    appId: fake-app-id
-    secret: fake-app-secret
+
