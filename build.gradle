@@ -39,12 +39,12 @@ task ensureCredentialsExist {
         if (!new File('src/main/resources/facebook-credentials.yaml').exists()) {
             throw new IllegalStateException(
                     """\
-                    Facebook API credentials not found. 
-					Please create facebook-credentials.yaml file in resurces folder
-					It must contain following keys:
-					- cojesc.http.client.facebook.appId
-					- cojesc.http.client.facebook.secret
-					""".stripIndent()
+                    |Facebook API credentials not found. 
+					|Please create facebook-credentials.yaml file in resurces folder
+					|It must contain following keys:
+					|- cojesc.http.client.facebook.appId
+					|- cojesc.http.client.facebook.secret
+					""".stripMargin()
             )
         }
     }
