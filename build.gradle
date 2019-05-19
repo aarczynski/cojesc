@@ -31,6 +31,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.spockframework:spock-spring:$spockVersion"
     testImplementation "org.spockframework:spock-core:$spockVersion"
+    testImplementation 'com.github.tomakehurst:wiremock-standalone:2.23.2'
 }
 
 task ensureCredentialsExist {
