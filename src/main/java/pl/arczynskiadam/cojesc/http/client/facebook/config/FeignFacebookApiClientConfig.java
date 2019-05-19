@@ -12,7 +12,12 @@ public class FeignFacebookApiClientConfig {
     private static final String ACCESS_TOKEN = "access_token";
 
     @Bean
-    public RequestInterceptor requestInterceptor(FacebookApiAuthProperties auth) {
+    public RequestInterceptor authRequestInterceptor(FacebookApiAuthProperties auth) {
         return requestTemplate -> requestTemplate.query(ACCESS_TOKEN, String.join("|", auth.getAppId(), auth.getSecret()));
+    }
+
+    @Bean
+    public RequestInterceptor queryParamInterceptor() {
+        return requestTemplate -> requestTemplate.query("fields", "images,created_time");
     }
 }
