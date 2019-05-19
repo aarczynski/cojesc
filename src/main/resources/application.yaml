@@ -1,1 +1,5 @@
-
+cojesc.restaurants:
+  wroclawska:
+    facebook-album-id: 902399719798664
+    menu-keywords: ['lunch menu']
+    menu-validity: 7 # days
