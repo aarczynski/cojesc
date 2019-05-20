@@ -36,11 +36,11 @@ dependencies {
 
 task ensureCredentialsExist {
     doFirst {
-        if (!new File('src/main/resources/credentials.yaml').exists()) {
+        if (!new File('src/main/resources/facebook-credentials.yaml').exists()) {
             throw new IllegalStateException(
                     """\
                     Facebook API credentials not found. 
-					Please create credential.yaml file in resurces folder
+					Please create facebook-credentials.yaml file in resurces folder
 					It must contain following keys:
 					- cojesc.http.client.facebook.appId
 					- cojesc.http.client.facebook.secret
