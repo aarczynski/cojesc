@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class OcrService {
 
-    public static final int TIMEOUT = 3000;
+    private static final int TIMEOUT = 3000;
 
     public boolean imageContainsKeywords(URL imageUrl, String... keywords) {
         var foundWords = processImage(imageUrl).getResponses(0).getTextAnnotationsList().stream()
