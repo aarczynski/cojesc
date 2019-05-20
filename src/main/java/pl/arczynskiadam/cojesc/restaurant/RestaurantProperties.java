@@ -2,9 +2,9 @@ package pl.arczynskiadam.cojesc.restaurant;
 
 public class RestaurantProperties {
 
-        private String facebookAlbumId;
-        private String[] menuKeyWords;
-        private int menuValidity;
+    private String facebookAlbumId;
+    private String[] menuKeyWords;
+    private int menuDuration;
 
     public String getFacebookAlbumId() {
         return facebookAlbumId;
@@ -22,11 +22,11 @@ public class RestaurantProperties {
         this.menuKeyWords = menuKeyWords;
     }
 
-    public int getMenuValidity() {
-        return menuValidity;
+    public int getMenuDuration() {
+        return menuDuration;
     }
 
-    public void setMenuValidity(int menuValidity) {
-        this.menuValidity = menuValidity;
+    public void setMenuDuration(int menuDuration) {
+        this.menuDuration = menuDuration;
     }
 }

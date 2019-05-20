@@ -65,7 +65,7 @@ public class MenuImageFilterService {
     }
 
     private ZonedDateTime expectedMenuPublishDate(Restaurant restaurant) {
-        Duration menuValidTime = Duration.ofDays(restaurantsProperties.getForRestaurant(restaurant).getMenuValidity());
-        return ZonedDateTime.now().truncatedTo(DAYS).plus(18, HOURS).minus(menuValidTime);
+        var menuDuration = Duration.ofDays(restaurantsProperties.getForRestaurant(restaurant).getMenuDuration());
+        return ZonedDateTime.now().truncatedTo(DAYS).plus(18, HOURS).minus(menuDuration);
     }
 }

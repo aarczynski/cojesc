@@ -2,5 +2,5 @@ cojesc.restaurants:
   wroclawska:
     facebook-album-id: 902399719798664
     menu-key-words: ['lunch', 'menu', 'wroclawska', 'gastropub']
-    menu-validity: 7 # days
+    menu-duration: 7 # days
 cojesc.http.client.facebook.url: http://localhost:8090
