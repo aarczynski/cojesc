@@ -13,7 +13,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'pl.arczynskiadam.lunch'
+group = 'pl.arczynskiadam'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_12
 
@@ -44,8 +44,8 @@ task ensureCredentialsExist {
                     |Facebook API credentials not found. 
 					|Please create facebook-credentials.yaml file in resurces folder
 					|It must contain following keys:
-					|- cojesc.http.client.facebook.appId
-					|- cojesc.http.client.facebook.secret
+					|- cojesc.client.facebook.graphapi.appId
+					|- cojesc.client.facebook.graphapi.secret
 					""".stripMargin()
             )
         }
