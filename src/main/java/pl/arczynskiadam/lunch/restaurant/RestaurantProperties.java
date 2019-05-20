@@ -3,7 +3,7 @@ package pl.arczynskiadam.lunch.restaurant;
 public class RestaurantProperties {
 
         private String facebookAlbumId;
-        private String[] keyWords;
+        private String[] menuKeyWords;
         private int menuValidity;
 
     public String getFacebookAlbumId() {
@@ -14,12 +14,12 @@ public class RestaurantProperties {
         this.facebookAlbumId = facebookAlbumId;
     }
 
-    public String[] getKeyWords() {
-        return keyWords;
+    public String[] getMenuKeyWords() {
+        return menuKeyWords;
     }
 
-    public void setKeyWords(String[] keyWords) {
-        this.keyWords = keyWords;
+    public void setMenuKeyWords(String[] menuKeyWords) {
+        this.menuKeyWords = menuKeyWords;
     }
 
     public int getMenuValidity() {
