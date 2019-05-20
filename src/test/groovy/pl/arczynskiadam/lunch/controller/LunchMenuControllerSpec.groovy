@@ -1,67 +1,34 @@
 package pl.arczynskiadam.lunch.controller
 
-import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import pl.arczynskiadam.lunch.CoJescApplication
-import spock.lang.Shared
+import pl.arczynskiadam.lunch.service.MenuImageFilterService
 import spock.lang.Specification
+import spock.mock.DetachedMockFactory
 
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import static org.springframework.http.HttpStatus.I_AM_A_TEAPOT
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @AutoConfigureMockMvc
-@SpringBootTest(classes = CoJescApplication)
+@SpringBootTest(classes = [LunchMenuController, DummyMenuImageFilterService])
 class LunchMenuControllerSpec extends Specification {
 
     @Autowired
     private MockMvc mockMvc
 
-    @Shared
-    WireMockServer wireMockServer
+    @Autowired
+    private MenuImageFilterService menuImageFilterService
 
-    void setup() {
-        wireMockServer.stubFor(
-                WireMock.any(WireMock.anyUrl())
-                        .willReturn(WireMock.aResponse()
-                        .withStatus(I_AM_A_TEAPOT.value())
-                )
-        )
-    }
-
-    void cleanup() {
-        wireMockServer.resetAll()
-    }
-
-    void setupSpec() {
-        wireMockServer = new WireMockServer(wireMockConfig().port(8090))
-        wireMockServer.start()
-    }
-
-    void cleanupSpec() {
-        wireMockServer.stop()
-        wireMockServer.shutdown()
-    }
-
-    def "should return facebook album data"() {
+    def "should return lunch menu url"() {
         given:
         def testRestaurant = 'wroclawska'
-
-        wireMockServer.stubFor(
-                WireMock.get(WireMock.urlMatching('/v3.3/[0-9]+/photos\\?.*'))
-                        .willReturn(WireMock.aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody("{\"data\":[]}")
-                )
-        )
+        menuImageFilterService.getLunchMenuImageLink(_) >> 'https://some.image.url'
 
         when:
         def result = mockMvc.perform(
@@ -72,7 +39,18 @@ class LunchMenuControllerSpec extends Specification {
         then:
         result
                 .andExpect(status().isOk())
-                .andExpect(jsonPath('$.*').isEmpty())
+                .andExpect(content().string('https://some.image.url'))
 
+    }
+
+
+    @TestConfiguration
+    static class DummyMenuImageFilterService {
+        private final DetachedMockFactory factory = new DetachedMockFactory()
+
+        @Bean
+        MenuImageFilterService menuImageFilterService() {
+            return factory.Mock(MenuImageFilterService)
+        }
     }
 }
