@@ -22,7 +22,7 @@ import java.util.Arrays;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class OcrService {
+public class GoogleOcrClient {
 
     private static final int TIMEOUT = 3000;
 
@@ -81,7 +81,7 @@ public class OcrService {
 
     private ImageAnnotatorSettings imageAnnotatorSettings() {
         try {
-            var resourceAsStream = OcrService.class.getClassLoader().getResourceAsStream(keyPath);
+            var resourceAsStream = GoogleOcrClient.class.getClassLoader().getResourceAsStream(keyPath);
             var credentials = ServiceAccountCredentials.fromStream(resourceAsStream);
 
             return ImageAnnotatorSettings.newBuilder()

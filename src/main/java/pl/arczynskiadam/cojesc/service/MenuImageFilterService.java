@@ -5,7 +5,7 @@ import pl.arczynskiadam.cojesc.client.facebook.graphapi.FacebookApiClient;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup;
-import pl.arczynskiadam.cojesc.client.google.ocr.OcrService;
+import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
 import pl.arczynskiadam.cojesc.restaurant.RestaurantsProperties;
 
@@ -22,12 +22,12 @@ import static java.time.temporal.ChronoUnit.HOURS;
 public class MenuImageFilterService {
     private FacebookApiClient facebookClient;
     private RestaurantsProperties restaurantsProperties;
-    private OcrService ocrService;
+    private GoogleOcrClient ocrClient;
 
-    public MenuImageFilterService(FacebookApiClient facebookClient, RestaurantsProperties restaurantsProperties, OcrService ocrService) {
+    public MenuImageFilterService(FacebookApiClient facebookClient, RestaurantsProperties restaurantsProperties, GoogleOcrClient ocrService) {
         this.facebookClient = facebookClient;
         this.restaurantsProperties = restaurantsProperties;
-        this.ocrService = ocrService;
+        this.ocrClient = ocrService;
     }
 
     public String getLunchMenuImageLink(Restaurant restaurant) {
@@ -61,7 +61,7 @@ public class MenuImageFilterService {
     }
 
     private boolean isMenuImg(URL imgUrl, Restaurant restaurant) {
-        return ocrService.imageContainsKeywords(imgUrl, restaurantsProperties.getForRestaurant(restaurant).getMenuKeyWords());
+        return ocrClient.imageContainsKeywords(imgUrl, restaurantsProperties.getForRestaurant(restaurant).getMenuKeyWords());
     }
 
     private ZonedDateTime expectedMenuPublishDate(Restaurant restaurant) {
