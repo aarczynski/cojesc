@@ -10,10 +10,10 @@ import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.cloud.vision.v1.ImageAnnotatorSettings;
 import com.google.protobuf.ByteString;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,6 +25,9 @@ import static java.util.stream.Collectors.toList;
 public class OcrService {
 
     private static final int TIMEOUT = 3000;
+
+    @Value("${cojesc.client.google.cloudvision.key-path}")
+    private String keyPath;
 
     public boolean imageContainsKeywords(URL imageUrl, String... keywords) {
         var foundWords = processImage(imageUrl).getResponses(0).getTextAnnotationsList().stream()
@@ -78,8 +81,8 @@ public class OcrService {
 
     private ImageAnnotatorSettings imageAnnotatorSettings() {
         try {
-            var keyPath = "/Users/adam.arczynski/Downloads/cojesc-e1ccdc6f35c1.json";
-            var credentials = ServiceAccountCredentials.fromStream(new FileInputStream(keyPath));
+            var resourceAsStream = OcrService.class.getClassLoader().getResourceAsStream(keyPath);
+            var credentials = ServiceAccountCredentials.fromStream(resourceAsStream);
 
             return ImageAnnotatorSettings.newBuilder()
                     .setCredentialsProvider(FixedCredentialsProvider.create(credentials))

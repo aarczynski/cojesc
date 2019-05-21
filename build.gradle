@@ -46,6 +46,9 @@ task ensureCredentialsExist {
 					|It must contain following keys:
 					|- cojesc.client.facebook.graphapi.appId
 					|- cojesc.client.facebook.graphapi.secret
+					|Please create google-credentials.yaml file in resurces folder
+                    |It must contain following key with path to google json key:
+                    |- cojesc.client.google.cloudvision.key-path
 					""".stripMargin()
             )
         }
