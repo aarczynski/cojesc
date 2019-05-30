@@ -31,7 +31,7 @@ public class Image {
 
     public static int compareSize(Image a, Image b) {
         int sizeA = a.getHeight() * a.getWidth();
-        int sizeB = b.getHeight() * a.getWidth();
+        int sizeB = b.getHeight() * b.getWidth();
         return Integer.compare(sizeA, sizeB);
     }
 }
