@@ -25,7 +25,7 @@ public class MenuImageFilterService {
     private RestaurantsProperties restaurantsProperties;
     private GoogleOcrClient ocrClient;
 
-    public MenuImageFilterService(FacebookApiClient facebookClient, RestaurantsProperties restaurantsProperties, GoogleOcrClient ocrService) {
+    public MenuImageFilterService(FacebookApiClient facebookClient, GoogleOcrClient ocrService, RestaurantsProperties restaurantsProperties) {
         this.facebookClient = facebookClient;
         this.restaurantsProperties = restaurantsProperties;
         this.ocrClient = ocrService;
