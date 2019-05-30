@@ -13,7 +13,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'pl.arczynskiadam.lunch'
+group = 'pl.arczynskiadam'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_12
 
@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'io.github.openfeign:feign-core:10.2.3' // Spring Cloud version override due to bug: https://github.com/OpenFeign/feign/issues/924
     implementation platform(group: "org.springframework.cloud", name: 'spring-cloud-dependencies', version: "$springCloudVersion")
+    implementation 'com.google.cloud:google-cloud-vision:1.74.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.spockframework:spock-spring:$spockVersion"
@@ -43,8 +44,11 @@ task ensureCredentialsExist {
                     |Facebook API credentials not found. 
 					|Please create facebook-credentials.yaml file in resurces folder
 					|It must contain following keys:
-					|- cojesc.http.client.facebook.appId
-					|- cojesc.http.client.facebook.secret
+					|- cojesc.client.facebook.graphapi.appId
+					|- cojesc.client.facebook.graphapi.secret
+					|Please create google-credentials.yaml file in resurces folder
+                    |It must contain following key with path to google json key:
+                    |- cojesc.client.google.cloudvision.key-path
 					""".stripMargin()
             )
         }
