@@ -39,7 +39,7 @@ public class MenuImageFilterService {
     private String findNewestLunchMenuImageLink(Album album, Restaurant restaurant) {
         return album.getData().stream()
                 .filter(after(expectedMenuPublishDate(restaurant)))
-                .map(ImageGroup::getBiggest)
+                .map(ImageGroup::findBiggestImage)
                 .filter(isMenuImage(restaurant))
                 .findFirst()
                 .get()

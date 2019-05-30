@@ -5,39 +5,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class ImageGroup {
-    String id;
-    List<Image> images;
+    private String id;
+    private List<Image> images;
     @JsonProperty("created_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
-    ZonedDateTime createdTime;
+    private ZonedDateTime createdTime;
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
     public ZonedDateTime getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(ZonedDateTime createdTime) {
-        this.createdTime = createdTime;
+    public Image findBiggestImage() {
+        return images.stream().max(Image::compareSize).get();
     }
 
-    public Image getBiggest() {
-        return images.stream().max(Image::compareSize).get();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImageGroup that = (ImageGroup) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(images, that.images) &&
+                Objects.equals(createdTime, that.createdTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, images, createdTime);
     }
 }
