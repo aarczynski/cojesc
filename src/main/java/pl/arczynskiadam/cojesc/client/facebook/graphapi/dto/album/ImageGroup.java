@@ -27,7 +27,10 @@ public class ImageGroup {
     }
 
     public Image findBiggestImage() {
-        return images.stream().max(Image::compareSize).get();
+        return images
+                .stream()
+                .max(Image::compareSize)
+                .orElseThrow(() -> new RuntimeException("Received empty image group from Facebook"));
     }
 
     @Override

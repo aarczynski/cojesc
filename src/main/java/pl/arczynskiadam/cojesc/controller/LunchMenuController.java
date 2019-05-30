@@ -22,7 +22,9 @@ public class LunchMenuController {
 
     @GetMapping("/{restaurant}")
     public String lunchMenu(@PathVariable("restaurant") Restaurant restaurant) {
-        return menuService.getLunchMenuImageLink(restaurant);
+        return menuService
+                .getLunchMenuImageLink(restaurant)
+                .orElse("Nie znaleziono aktualnego menu");
     }
 
     @InitBinder

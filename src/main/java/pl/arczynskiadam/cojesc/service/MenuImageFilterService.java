@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -30,42 +31,44 @@ public class MenuImageFilterService {
         this.ocrClient = ocrService;
     }
 
-    public String getLunchMenuImageLink(Restaurant restaurant) {
+    public Optional<String> getLunchMenuImageLink(Restaurant restaurant) {
         var restaurantProperties = restaurantsProperties.getForRestaurant(restaurant);
         var album = facebookClient.getAlbum(restaurantProperties.getFacebookAlbumId());
         return findNewestLunchMenuImageLink(album, restaurant);
     }
 
-    private String findNewestLunchMenuImageLink(Album album, Restaurant restaurant) {
+    private Optional<String> findNewestLunchMenuImageLink(Album album, Restaurant restaurant) {
         return album.getData().stream()
                 .filter(after(expectedMenuPublishDate(restaurant)))
                 .map(ImageGroup::findBiggestImage)
-                .filter(isMenuImage(restaurant))
+                .filter(menuImagesOnly(restaurant))
                 .findFirst()
-                .get()
-                .getSource();
-    }
-
-    private Predicate<Image> isMenuImage(Restaurant restaurant) {
-        return img -> {
-            try {
-                return isMenuImg(new URL(img.getSource()), restaurant);
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(img.getSource() + " is incorrect url");
-            }
-        };
+                .flatMap(this::toSource);
     }
 
     private Predicate<ImageGroup> after(ZonedDateTime time) {
         return imgGr -> imgGr.getCreatedTime().isAfter(time);
     }
 
-    private boolean isMenuImg(URL imgUrl, Restaurant restaurant) {
-        return ocrClient.imageContainsKeywords(imgUrl, restaurantsProperties.getForRestaurant(restaurant).getMenuKeyWords());
+    private Predicate<Image> menuImagesOnly(Restaurant restaurant) {
+        return img -> {
+            try {
+                return ocrClient.imageContainsKeywords(
+                        new URL(img.getSource()),
+                        restaurantsProperties.getForRestaurant(restaurant).getMenuKeyWords()
+                );
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(img.getSource() + " is not a correct url");
+            }
+        };
     }
 
     private ZonedDateTime expectedMenuPublishDate(Restaurant restaurant) {
         var menuDuration = Duration.ofDays(restaurantsProperties.getForRestaurant(restaurant).getMenuDuration());
         return ZonedDateTime.now().truncatedTo(DAYS).plus(18, HOURS).minus(menuDuration);
+    }
+
+    private Optional<String> toSource(Image image) {
+        return Optional.of(image.getSource());
     }
 }
