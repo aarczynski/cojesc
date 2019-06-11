@@ -5,9 +5,9 @@ import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient
-import pl.arczynskiadam.cojesc.restaurant.Restaurant
-import pl.arczynskiadam.cojesc.restaurant.RestaurantProperties
-import pl.arczynskiadam.cojesc.restaurant.RestaurantsProperties
+
+import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant
+
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -30,7 +30,7 @@ class MenuImageFilterServiceSpec extends Specification {
 
         RestaurantsProperties properties = new RestaurantsProperties(
                 restaurants: [
-                        (Restaurant.WROCLAWSKA): new RestaurantProperties(
+                        (Restaurant.WROCLAWSKA): new FacebookAlbumRestaurant(
                                 facebookAlbumId: FACEBOOK_ALBUM_ID,
                                 menuDuration: 1
                         )
