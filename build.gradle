@@ -38,7 +38,7 @@ dependencies {
 
 task ensureCredentialsExist {
     doFirst {
-        if (!new File('src/main/resources/facebook-credentials.yaml').exists()) {
+        if (!file("$rootDir/src/main/resources/facebook-credentials.yaml").exists()) {
             throw new IllegalStateException(
                     """\
                     |Facebook API credentials not found. 
@@ -46,6 +46,13 @@ task ensureCredentialsExist {
 					|It must contain following keys:
 					|- cojesc.client.facebook.graphapi.appId
 					|- cojesc.client.facebook.graphapi.secret
+					""".stripMargin()
+            )
+        }
+        if (!file("$rootDir/src/main/resources/google-credentials.yaml").exists()) {
+            throw new IllegalStateException(
+                    """\
+                    |Gloogle Cloud Vision API credentials not found. 
 					|Please create google-credentials.yaml file in resurces folder
                     |It must contain following key with path to google json key:
                     |- cojesc.client.google.cloudvision.key-path
