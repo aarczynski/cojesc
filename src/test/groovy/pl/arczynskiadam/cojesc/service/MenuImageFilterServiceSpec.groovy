@@ -5,9 +5,7 @@ import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient
-import pl.arczynskiadam.cojesc.restaurant.Restaurant
-import pl.arczynskiadam.cojesc.restaurant.RestaurantProperties
-import pl.arczynskiadam.cojesc.restaurant.RestaurantsProperties
+import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -20,6 +18,7 @@ class MenuImageFilterServiceSpec extends Specification {
 
     private FacebookApiClient facebookClient
     private GoogleOcrClient ocrClient
+    private FacebookAlbumRestaurant restaurant
 
     @Subject
     private MenuImageFilterService service
@@ -27,16 +26,12 @@ class MenuImageFilterServiceSpec extends Specification {
     void setup() {
         facebookClient = Mock()
         ocrClient = Mock()
+        service = new MenuImageFilterService(facebookClient, ocrClient)
 
-        RestaurantsProperties properties = new RestaurantsProperties(
-                restaurants: [
-                        (Restaurant.WROCLAWSKA): new RestaurantProperties(
-                                facebookAlbumId: FACEBOOK_ALBUM_ID,
-                                menuDuration: 1
-                        )
-                ]
+        restaurant = new FacebookAlbumRestaurant(
+                facebookAlbumId: FACEBOOK_ALBUM_ID,
+                menuDuration: 1
         )
-        service = new MenuImageFilterService(facebookClient, ocrClient, properties)
 
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/not-lunch-img-link.jpg'), _) >> false
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/new-lunch-img-link-small.jpg'), _) >> true
@@ -56,7 +51,7 @@ class MenuImageFilterServiceSpec extends Specification {
         )
 
         when:
-        def link = service.getLunchMenuImageLink(Restaurant.WROCLAWSKA)
+        def link = service.getLunchMenuImageLink(restaurant)
 
         then:
         link.get() == 'http://www.some-host.com/new-lunch-img-link-big.jpg'
@@ -69,7 +64,7 @@ class MenuImageFilterServiceSpec extends Specification {
         )
 
         when:
-        def link = service.getLunchMenuImageLink(Restaurant.WROCLAWSKA)
+        def link = service.getLunchMenuImageLink(restaurant)
 
         then:
         link.isEmpty()
@@ -82,7 +77,7 @@ class MenuImageFilterServiceSpec extends Specification {
         )
 
         when:
-        def link = service.getLunchMenuImageLink(Restaurant.WROCLAWSKA)
+        def link = service.getLunchMenuImageLink(restaurant)
 
         then:
         link.isEmpty()

@@ -1,13 +1,10 @@
 package pl.arczynskiadam.cojesc.controller;
 
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.arczynskiadam.cojesc.client.facebook.graphapi.converter.RestaurantEnumConverter;
-import pl.arczynskiadam.cojesc.restaurant.Restaurant;
+import pl.arczynskiadam.cojesc.restaurant.Restaurants;
 import pl.arczynskiadam.cojesc.service.MenuImageFilterService;
 
 @RestController
@@ -15,20 +12,17 @@ import pl.arczynskiadam.cojesc.service.MenuImageFilterService;
 public class LunchMenuController {
 
     private MenuImageFilterService menuService;
+    private Restaurants restaurants;
 
-    public LunchMenuController(MenuImageFilterService menuService) {
+    public LunchMenuController(MenuImageFilterService menuService, Restaurants restaurants) {
         this.menuService = menuService;
+        this.restaurants = restaurants;
     }
 
     @GetMapping("/{restaurant}")
-    public String lunchMenu(@PathVariable("restaurant") Restaurant restaurant) {
+    public String lunchMenu(@PathVariable("restaurant") String restaurant) {
         return menuService
-                .getLunchMenuImageLink(restaurant)
+                .getLunchMenuImageLink(restaurants.getByName(restaurant))
                 .orElse("Nie znaleziono aktualnego menu");
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder) {
-        dataBinder.registerCustomEditor(Restaurant.class, new RestaurantEnumConverter());
     }
 }

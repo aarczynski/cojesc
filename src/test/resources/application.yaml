@@ -1,6 +1,9 @@
-cojesc.restaurants:
-  wroclawska:
-    facebook-album-id: 902399719798664
-    menu-key-words: ['lunch', 'menu', 'wroclawska', 'gastropub']
-    menu-duration: 7 # days
-cojesc.http.client.facebook.url: http://localhost:8090
+cojesc:
+  http.client.facebook.url: http://localhost:8090
+  restaurants:
+    fbAlbumRestaurants:
+      -
+        name: test-restaurant
+        facebook-album-id: 123456789
+        menu-key-words: ['lunch', 'menu']
+        menu-duration: 7 # days

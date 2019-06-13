@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import pl.arczynskiadam.cojesc.restaurant.Restaurants
 import pl.arczynskiadam.cojesc.service.MenuImageFilterService
 import spock.lang.Specification
 import spock.mock.DetachedMockFactory
@@ -16,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @AutoConfigureMockMvc
-@SpringBootTest(classes = [LunchMenuController, DummyMenuImageFilterService])
+@SpringBootTest(classes = [LunchMenuController, Restaurants, DummyMenuImageFilterService])
 class LunchMenuControllerSpec extends Specification {
 
     @Autowired
@@ -27,7 +28,7 @@ class LunchMenuControllerSpec extends Specification {
 
     def "should return lunch menu url"() {
         given:
-        def testRestaurant = 'wroclawska'
+        def testRestaurant = 'test-restaurant'
         menuImageFilterService.getLunchMenuImageLink(_) >> Optional.of('https://some.image.url')
 
         when:
@@ -42,7 +43,6 @@ class LunchMenuControllerSpec extends Specification {
                 .andExpect(content().string('https://some.image.url'))
 
     }
-
 
     @TestConfiguration
     static class DummyMenuImageFilterService {

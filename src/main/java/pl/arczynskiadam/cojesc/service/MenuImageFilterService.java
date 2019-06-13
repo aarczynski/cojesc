@@ -6,8 +6,8 @@ import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup;
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient;
+import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
-import pl.arczynskiadam.cojesc.restaurant.RestaurantsProperties;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,18 +22,15 @@ import static java.time.temporal.ChronoUnit.HOURS;
 @Service
 public class MenuImageFilterService {
     private FacebookApiClient facebookClient;
-    private RestaurantsProperties restaurantsProperties;
     private GoogleOcrClient ocrClient;
 
-    public MenuImageFilterService(FacebookApiClient facebookClient, GoogleOcrClient ocrService, RestaurantsProperties restaurantsProperties) {
+    public MenuImageFilterService(FacebookApiClient facebookClient, GoogleOcrClient ocrService) {
         this.facebookClient = facebookClient;
-        this.restaurantsProperties = restaurantsProperties;
         this.ocrClient = ocrService;
     }
 
-    public Optional<String> getLunchMenuImageLink(Restaurant restaurant) {
-        var restaurantProperties = restaurantsProperties.getForRestaurant(restaurant);
-        var album = facebookClient.getAlbum(restaurantProperties.getFacebookAlbumId());
+    public Optional<String> getLunchMenuImageLink(FacebookAlbumRestaurant restaurant) {
+        var album = facebookClient.getAlbum(restaurant.getFacebookAlbumId());
         return findNewestLunchMenuImageLink(album, restaurant);
     }
 
@@ -55,7 +52,7 @@ public class MenuImageFilterService {
             try {
                 return ocrClient.imageContainsKeywords(
                         new URL(img.getSource()),
-                        restaurantsProperties.getForRestaurant(restaurant).getMenuKeyWords()
+                        restaurant.getMenuKeyWords()
                 );
             } catch (MalformedURLException e) {
                 throw new RuntimeException(img.getSource() + " is not a correct url");
@@ -64,7 +61,7 @@ public class MenuImageFilterService {
     }
 
     private ZonedDateTime expectedMenuPublishDate(Restaurant restaurant) {
-        var menuDuration = Duration.ofDays(restaurantsProperties.getForRestaurant(restaurant).getMenuDuration());
+        var menuDuration = Duration.ofDays(restaurant.getMenuDuration());
         return ZonedDateTime.now().truncatedTo(DAYS).plus(18, HOURS).minus(menuDuration);
     }
 
