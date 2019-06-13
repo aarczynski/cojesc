@@ -30,4 +30,5 @@ HELP.md
 .vscode/
 
 /**/facebook-credentials.yaml
+/**/google-credentials.yaml
 /**/cojesc-google-key.json
