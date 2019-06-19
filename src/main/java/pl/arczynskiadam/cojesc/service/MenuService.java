@@ -8,15 +8,15 @@ import java.util.Optional;
 
 @Service
 public class MenuService {
-    MenuImageFilterService menuImageFilterService;
+    FacebookAlbumMenuService facebookAlbumMenuService;
 
-    public MenuService(MenuImageFilterService menuImageFilterService) {
-        this.menuImageFilterService = menuImageFilterService;
+    public MenuService(FacebookAlbumMenuService facebookAlbumMenuService) {
+        this.facebookAlbumMenuService = facebookAlbumMenuService;
     }
 
     public Optional<String> findLunchMenuUrl(Restaurant restaurant) {
         if (restaurant instanceof FacebookAlbumRestaurant) {
-            return menuImageFilterService.getLunchMenuImageLink((FacebookAlbumRestaurant) restaurant);
+            return facebookAlbumMenuService.getLunchMenuImageLink((FacebookAlbumRestaurant) restaurant);
         }
 
         return Optional.empty();
