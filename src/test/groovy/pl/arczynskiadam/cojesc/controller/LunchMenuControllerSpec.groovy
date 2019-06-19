@@ -1,14 +1,13 @@
 package pl.arczynskiadam.cojesc.controller
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import pl.arczynskiadam.cojesc.restaurant.Restaurants
-import pl.arczynskiadam.cojesc.service.MenuImageFilterService
+import pl.arczynskiadam.cojesc.service.MenuService
 import spock.lang.Specification
 import spock.mock.DetachedMockFactory
 
@@ -16,20 +15,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@AutoConfigureMockMvc
-@SpringBootTest(classes = [LunchMenuController, Restaurants, DummyMenuImageFilterService])
+@WebMvcTest([LunchMenuController, Restaurants, DummyMenuService])
 class LunchMenuControllerSpec extends Specification {
 
     @Autowired
     private MockMvc mockMvc
 
     @Autowired
-    private MenuImageFilterService menuImageFilterService
+    private MenuService menuService
 
     def "should return lunch menu url"() {
         given:
         def testRestaurant = 'test-restaurant'
-        menuImageFilterService.getLunchMenuImageLink(_) >> Optional.of('https://some.image.url')
+        menuService.findLunchMenuUrl(_) >> Optional.of('https://some.image.url')
 
         when:
         def result = mockMvc.perform(
@@ -45,12 +43,12 @@ class LunchMenuControllerSpec extends Specification {
     }
 
     @TestConfiguration
-    static class DummyMenuImageFilterService {
+    static class DummyMenuService {
         private final DetachedMockFactory factory = new DetachedMockFactory()
 
         @Bean
-        MenuImageFilterService menuImageFilterService() {
-            return factory.Mock(MenuImageFilterService)
+        MenuService menuImageFilterService() {
+            return factory.Mock(MenuService)
         }
     }
 }
