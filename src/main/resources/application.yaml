@@ -1,5 +1,5 @@
 cojesc:
-  http.client.facebook.url: http://localhost:8090
+  http.client.facebook.url: https://graph.facebook.com
   restaurants:
     fbAlbumRestaurants:
     -
