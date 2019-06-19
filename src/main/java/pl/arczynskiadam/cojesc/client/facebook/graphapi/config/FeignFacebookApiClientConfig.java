@@ -15,9 +15,4 @@ public class FeignFacebookApiClientConfig {
     public RequestInterceptor authRequestInterceptor(FacebookApiAuthProperties auth) {
         return requestTemplate -> requestTemplate.query(ACCESS_TOKEN, String.join("|", auth.getAppId(), auth.getSecret()));
     }
-
-    @Bean
-    public RequestInterceptor queryParamInterceptor() {
-        return requestTemplate -> requestTemplate.query("fields", "images,created_time");
-    }
 }
