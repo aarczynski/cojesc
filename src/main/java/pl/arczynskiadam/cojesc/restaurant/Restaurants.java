@@ -3,13 +3,16 @@ package pl.arczynskiadam.cojesc.restaurant;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 @Component
 @ConfigurationProperties(prefix = "cojesc.restaurants")
 public class Restaurants {
-    List<FacebookAlbumRestaurant> fbAlbumRestaurants;
+    List<FacebookAlbumRestaurant> fbAlbumRestaurants = Collections.emptyList();
+    List<FacebookFeedRestaurant> fbFeedRestaurants = Collections.emptyList();
 
     public List<FacebookAlbumRestaurant> getFbAlbumRestaurants() {
         return fbAlbumRestaurants;
@@ -19,9 +22,12 @@ public class Restaurants {
         this.fbAlbumRestaurants = fbAlbumRestaurants;
     }
 
-    public FacebookAlbumRestaurant getByName(String name) {
-        return fbAlbumRestaurants
-                .stream()
+    public void setFbFeedRestaurants(List<FacebookFeedRestaurant> fbFeedRestaurants) {
+        this.fbFeedRestaurants = fbFeedRestaurants;
+    }
+
+    public Restaurant getByName(String name) {
+        return Stream.concat(fbAlbumRestaurants.stream(), fbFeedRestaurants.stream())
                 .filter(r -> r.getName().equals(name))
                 .findFirst()
                 .orElseThrow(noSuchRestaurantException(name));

@@ -20,11 +20,11 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.HOURS;
 
 @Service
-public class MenuImageFilterService {
+public class FacebookAlbumMenuService {
     private FacebookApiClient facebookClient;
     private GoogleOcrClient ocrClient;
 
-    public MenuImageFilterService(FacebookApiClient facebookClient, GoogleOcrClient ocrService) {
+    public FacebookAlbumMenuService(FacebookApiClient facebookClient, GoogleOcrClient ocrService) {
         this.facebookClient = facebookClient;
         this.ocrClient = ocrService;
     }

@@ -12,7 +12,7 @@ import spock.lang.Subject
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class MenuImageFilterServiceSpec extends Specification {
+class FacebookAlbumMenuServiceSpec extends Specification {
 
     private static final String FACEBOOK_ALBUM_ID = '123456789'
 
@@ -21,12 +21,12 @@ class MenuImageFilterServiceSpec extends Specification {
     private FacebookAlbumRestaurant restaurant
 
     @Subject
-    private MenuImageFilterService service
+    private FacebookAlbumMenuService service
 
     void setup() {
         facebookClient = Mock()
         ocrClient = Mock()
-        service = new MenuImageFilterService(facebookClient, ocrClient)
+        service = new FacebookAlbumMenuService(facebookClient, ocrClient)
 
         restaurant = new FacebookAlbumRestaurant(
                 facebookAlbumId: FACEBOOK_ALBUM_ID,
