@@ -9,8 +9,6 @@ import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient;
 import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -18,6 +16,7 @@ import java.util.function.Predicate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.HOURS;
+import static pl.arczynskiadam.cojesc.util.UrlUtil.toUrl;
 
 @Service
 public class FacebookAlbumMenuService {
@@ -48,16 +47,7 @@ public class FacebookAlbumMenuService {
     }
 
     private Predicate<Image> menuImagesOnly(Restaurant restaurant) {
-        return img -> {
-            try {
-                return ocrClient.imageContainsKeywords(
-                        new URL(img.getSource()),
-                        restaurant.getMenuKeyWords()
-                );
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(img.getSource() + " is not a correct url");
-            }
-        };
+        return img -> ocrClient.imageContainsKeywords(toUrl(img.getSource()), restaurant.getMenuKeyWords());
     }
 
     private ZonedDateTime expectedMenuPublishDate(Restaurant restaurant) {

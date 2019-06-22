@@ -5,12 +5,14 @@ import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.FacebookFeedRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
+
+import static pl.arczynskiadam.cojesc.util.UrlUtil.toUrl;
 
 @Service
 public class MenuService {
+    private static final String FACEBOOK_POST_CSS_CLASS = "_4-u2 _39j6 _4-u8";
+
     private HtmlRetrieveService htmlRetrieveService;
     private FacebookAlbumMenuService facebookAlbumMenuService;
     private FacebookFeedMenuService facebookFeedMenuService;
@@ -24,21 +26,13 @@ public class MenuService {
     public Optional<String> findLunchMenu(Restaurant restaurant) {
         if (restaurant instanceof FacebookAlbumRestaurant) {
             return facebookAlbumMenuService.getLunchMenuImageLink((FacebookAlbumRestaurant) restaurant)
-                    .map(s -> String.format("<img src=\"%s\"/>", s));
+                    .map(imgUrl -> String.format("<img src=\"%s\"/>", imgUrl));
         }
         if (restaurant instanceof FacebookFeedRestaurant) {
             return facebookFeedMenuService.getLunchMenuLink((FacebookFeedRestaurant) restaurant)
-                    .map(s -> htmlRetrieveService.fetchByCssClass(convertToUrl(s), "_4-u2 _39j6 _4-u8").get(0));
+                    .map(html -> htmlRetrieveService.fetchByCssClass(toUrl(html), FACEBOOK_POST_CSS_CLASS).get(0));
         }
 
         return Optional.empty();
-    }
-
-    private URL convertToUrl(String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(url + "is not a valid url");
-        }
     }
 }
