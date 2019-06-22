@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 @ConfigurationProperties(prefix = "cojesc.restaurants")
 public class Restaurants {
     List<FacebookAlbumRestaurant> fbAlbumRestaurants = Collections.emptyList();
-    List<FacebookAlbumRestaurant> fbFeedRestaurants = Collections.emptyList();
+    List<FacebookFeedRestaurant> fbFeedRestaurants = Collections.emptyList();
 
     public List<FacebookAlbumRestaurant> getFbAlbumRestaurants() {
         return fbAlbumRestaurants;
@@ -22,7 +22,7 @@ public class Restaurants {
         this.fbAlbumRestaurants = fbAlbumRestaurants;
     }
 
-    public void setFbFeedRestaurants(List<FacebookAlbumRestaurant> fbFeedRestaurants) {
+    public void setFbFeedRestaurants(List<FacebookFeedRestaurant> fbFeedRestaurants) {
         this.fbFeedRestaurants = fbFeedRestaurants;
     }
 
