@@ -27,7 +27,7 @@ class LunchMenuControllerSpec extends Specification {
     def "should return lunch menu url"() {
         given:
         def testRestaurant = 'test-restaurant'
-        menuService.findLunchMenuUrl(_) >> Optional.of('https://some.image.url')
+        menuService.findLunchMenu(_) >> Optional.of('<img src="https://some.image.url"/>')
 
         when:
         def result = mockMvc.perform(
@@ -38,7 +38,7 @@ class LunchMenuControllerSpec extends Specification {
         then:
         result
                 .andExpect(status().isOk())
-                .andExpect(content().string('https://some.image.url'))
+                .andExpect(content().string('<img src="https://some.image.url"/>'))
 
     }
 
