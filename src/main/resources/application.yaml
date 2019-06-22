@@ -7,3 +7,8 @@ cojesc:
       facebook-album-id: 902399719798664
       menu-key-words: ['lunch', 'menu', 'wrocławska', 'gastropub']
       menu-duration: 7 # days
+    fbFeedRestaurants:
+    - name: setka
+      facebook-id: setka.bar
+      menu-key-words: ['Menu lunchowe']
+      menu-duration: 7 # days
