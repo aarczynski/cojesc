@@ -31,7 +31,7 @@ class LunchMenuControllerSpec extends Specification {
 
         when:
         def result = mockMvc.perform(
-                get("/menu/lunch/$testRestaurant")
+                get("/restaurants/$testRestaurant/lunch")
                         .header("Accept", MediaType.TEXT_PLAIN)
         )
 
@@ -48,13 +48,25 @@ class LunchMenuControllerSpec extends Specification {
 
         when:
         def result = mockMvc.perform(
-                get("/menu/lunch/$testRestaurant")
+                get("/restaurants/$testRestaurant/lunch")
                         .header("Accept", MediaType.TEXT_PLAIN)
         )
 
         then:
         result
                 .andExpect(status().isNotFound())
+    }
+
+    def "should return all restaurant names"() {
+        when:
+        def result = mockMvc.perform(
+                get("/restaurants")
+        )
+
+        then:
+        result
+                .andExpect(status().isOk())
+                .andExpect(content().string('["test-restaurant"]'))
     }
 
     @TestConfiguration

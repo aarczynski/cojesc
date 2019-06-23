@@ -5,13 +5,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.arczynskiadam.cojesc.restaurant.Restaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurants;
 import pl.arczynskiadam.cojesc.service.MenuService;
 
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping("/menu/lunch")
+@RequestMapping("/restaurants")
 public class LunchMenuController {
 
     private MenuService menuService;
@@ -22,7 +26,14 @@ public class LunchMenuController {
         this.restaurants = restaurants;
     }
 
-    @GetMapping("/{restaurant}")
+    @GetMapping
+    public List<String> supportedRestaurants() {
+        return restaurants.getAll().stream()
+                .map(Restaurant::getName)
+                .collect(toList());
+    }
+
+    @GetMapping("/{restaurant}/lunch")
     public ResponseEntity<String> lunchMenu(@PathVariable("restaurant") String restaurant) {
         return menuService
                 .findLunchMenu(restaurants.getByName(restaurant))

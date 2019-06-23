@@ -14,8 +14,9 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <div id="vue-app">
-    <restaurant name="wroclawska"></restaurant>
-    <restaurant name="setka"></restaurant>
+    <div v-for="r in restaurants">
+        <restaurant v-bind:name="r"></restaurant>
+    </div>
 </div>
 
 <script>
@@ -28,7 +29,7 @@
         },
         methods: {
             getLunchMenu() {
-                axios.get(`/menu/lunch/${this.name}`)
+                axios.get(`/restaurants/${this.name}/lunch`)
                     .then(response => {
                         this.lunch = response.data
                     })
@@ -51,6 +52,22 @@
 
     new Vue({
         el: '#vue-app',
+        data() {
+            return {
+                restaurants: []
+            }
+        },
+        methods: {
+            supportedRestaurants() {
+                axios.get(`/restaurants`)
+                    .then(response => {
+                        this.restaurants = response.data;
+                    })
+            }
+        },
+        mounted() {
+            this.supportedRestaurants();
+        }
     })
 </script>
 
