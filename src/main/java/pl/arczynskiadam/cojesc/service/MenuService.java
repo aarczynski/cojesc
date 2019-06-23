@@ -7,18 +7,12 @@ import pl.arczynskiadam.cojesc.restaurant.Restaurant;
 
 import java.util.Optional;
 
-import static pl.arczynskiadam.cojesc.util.UrlUtil.toUrl;
-
 @Service
 public class MenuService {
-    private static final String FACEBOOK_POST_CSS_CLASS = "_4-u2 _39j6 _4-u8";
-
-    private HtmlRetrieveService htmlRetrieveService;
     private FacebookAlbumMenuService facebookAlbumMenuService;
     private FacebookFeedMenuService facebookFeedMenuService;
 
-    public MenuService(HtmlRetrieveService htmlRetrieveService, FacebookAlbumMenuService facebookAlbumMenuService, FacebookFeedMenuService facebookFeedMenuService) {
-        this.htmlRetrieveService = htmlRetrieveService;
+    public MenuService(FacebookAlbumMenuService facebookAlbumMenuService, FacebookFeedMenuService facebookFeedMenuService) {
         this.facebookAlbumMenuService = facebookAlbumMenuService;
         this.facebookFeedMenuService = facebookFeedMenuService;
     }
@@ -30,7 +24,7 @@ public class MenuService {
         }
         if (restaurant instanceof FacebookFeedRestaurant) {
             return facebookFeedMenuService.getLunchMenuLink((FacebookFeedRestaurant) restaurant)
-                    .map(html -> htmlRetrieveService.fetchByCssClass(toUrl(html), FACEBOOK_POST_CSS_CLASS).get(0));
+                    .map(url -> String.format("<div class=\"fb-post\" data-href=\"%s\"></div>", url));
         }
 
         return Optional.empty();

@@ -1,0 +1,19 @@
+.lunch-container {
+    background-color: darkgray;
+    border: black 2px solid;
+    padding: 8px;
+}
+.lunch-container > img {
+    max-width: 100%;
+}
+
+/* bootstrap overrides */
+
+.row {
+    margin: 0;
+    padding: 0;
+}
+.col-sm {
+    margin: 5px;
+    padding: 0;
+}
