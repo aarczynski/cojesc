@@ -1,11 +1,14 @@
 package pl.arczynskiadam.cojesc.controller
 
+import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Primary
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant
 import pl.arczynskiadam.cojesc.restaurant.Restaurants
 import pl.arczynskiadam.cojesc.service.MenuService
 import spock.lang.Specification
@@ -15,14 +18,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@WebMvcTest([LunchMenuController, Restaurants, DummyMenuService])
+@WebMvcTest(controllers = [ LunchMenuController ])
 class LunchMenuControllerSpec extends Specification {
 
     @Autowired
     private MockMvc mockMvc
 
-    @Autowired
-    private MenuService menuService
+    @SpringBean
+    private MenuService menuService = Mock()
+
+    @SpringBean
+    private Restaurants restaurants = Mock()
+
+    void setup() {
+        restaurants.getByName(_) >> new FacebookAlbumRestaurant()
+        restaurants.getAll() >> [
+                new FacebookAlbumRestaurant(name: 'test-restaurant-1'),
+                new FacebookAlbumRestaurant(name: 'test-restaurant-2')
+        ]
+    }
 
     def "should return lunch menu url"() {
         given:
@@ -66,15 +80,16 @@ class LunchMenuControllerSpec extends Specification {
         then:
         result
                 .andExpect(status().isOk())
-                .andExpect(content().string('["test-restaurant"]'))
+                .andExpect(content().string('["test-restaurant-1","test-restaurant-2"]'))
     }
 
     @TestConfiguration
-    static class DummyMenuService {
+    static class MockMenuService {
         private final DetachedMockFactory factory = new DetachedMockFactory()
 
         @Bean
-        MenuService menuImageFilterService() {
+        @Primary
+        MenuService menuService() {
             return factory.Mock(MenuService)
         }
     }
