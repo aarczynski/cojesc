@@ -6,6 +6,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class FacebookAlbumRestaurant extends Restaurant {
-
     private String facebookAlbumId;
 }
