@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Cojesc</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<div id="vue-app">
+    <div v-for="r in restaurants">
+        <restaurant v-bind:name="r"></restaurant>
+    </div>
+</div>
+
+<script>
+    Vue.component('restaurant', {
+        props: ['name'],
+        data() {
+            return {
+                lunch: `Ładuję lunch menu ${this.name}...`
+            }
+        },
+        methods: {
+            getLunchMenu() {
+                axios.get(`/restaurants/${this.name}/lunch`)
+                    .then(response => {
+                        this.lunch = response.data
+                    })
+                    .catch(error => {
+                        if (error.response.status === 404) {
+                            this.lunch = `Nie znalazłem aktualnego lunch menu dla ${this.name}`
+                        } else if (error.response.status === 500) {
+                            this.lunch = `Potknąłem się o własne nogi, ładując lunch menu ${this.name} (500)`
+                        }
+                    });
+            }
+        },
+        mounted() {
+            this.getLunchMenu(this.name);
+        },
+        template: `
+            <div id="{{name}}" v-html="lunch"></div>
+        `
+    });
+
+    new Vue({
+        el: '#vue-app',
+        data() {
+            return {
+                restaurants: []
+            }
+        },
+        methods: {
+            supportedRestaurants() {
+                axios.get(`/restaurants`)
+                    .then(response => {
+                        this.restaurants = response.data;
+                    })
+            }
+        },
+        mounted() {
+            this.supportedRestaurants();
+        }
+    })
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
