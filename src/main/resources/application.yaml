@@ -3,12 +3,31 @@ cojesc:
   restaurants:
     fbAlbumRestaurants:
     -
-      name: wroclawska
+      name: Wrocławska
       facebook-album-id: 902399719798664
       menu-key-words: ['lunch', 'menu', 'wrocławska', 'gastropub']
       menu-duration: 7 # days
+    -
+      name: Pod Latarniami
+      facebook-album-id: 280817042068071
+      menu-key-words: ['pod', 'latarniami', 'lunch']
+      menu-duration: 7 # days
+      fbFeedRestaurants:
+    -
+      name: Doctor's Bar
+      facebook-album-id: 239073499878087
+      menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
+      menu-duration: 7 # days
+      fbFeedRestaurants:
+    -
+      name: Mama Manoush
+      facebook-album-id: 951955061547382
+      menu-key-words: ['lunch']
+      menu-duration: 7 # days
+      fbFeedRestaurants:
     fbFeedRestaurants:
-    - name: setka
+    -
+      name: Setka
       facebook-id: setka.bar
-      menu-key-words: ['Menu lunchowe']
+      menu-key-words: ['menu lunchowe']
       menu-duration: 7 # days
