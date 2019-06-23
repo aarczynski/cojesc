@@ -1,5 +1,8 @@
 cojesc:
   http.client.facebook.url: http://localhost:8090
+  cache:
+    name: lunch
+    eviction: 0 0 0 * * *
   restaurants:
     fbAlbumRestaurants:
       -
@@ -7,3 +10,6 @@ cojesc:
         facebook-album-id: 123456789
         menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
+spring:
+  main:
+    allow-bean-definition-overriding: true

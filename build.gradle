@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'io.github.openfeign:feign-core:10.2.3' // Spring Cloud version override due to bug: https://github.com/OpenFeign/feign/issues/924
     implementation platform(group: "org.springframework.cloud", name: 'spring-cloud-dependencies', version: "$springCloudVersion")
