@@ -2,6 +2,7 @@
     background-color: darkgray;
     border: black 2px solid;
     padding: 8px;
+    text-align: center;
 }
 .lunch-container > img {
     max-width: 100%;
