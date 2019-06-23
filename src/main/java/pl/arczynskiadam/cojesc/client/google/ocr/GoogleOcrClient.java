@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class GoogleOcrClient {
 
-    private static final int TIMEOUT = 3000;
+    private static final int TIMEOUT = 15000;
 
     @Value("${cojesc.client.google.cloudvision.key-path}")
     private String keyPath;
