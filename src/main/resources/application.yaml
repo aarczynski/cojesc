@@ -13,6 +13,12 @@ cojesc:
       menu-key-words: ['pod', 'latarniami', 'lunch']
       menu-duration: 7 # days
       fbFeedRestaurants:
+    -
+      name: doctorsbar
+      facebook-album-id: 239073499878087
+      menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
+      menu-duration: 7 # days
+      fbFeedRestaurants:
     fbFeedRestaurants:
     -
       name: setka
