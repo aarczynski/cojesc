@@ -19,9 +19,15 @@ cojesc:
       menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
       menu-duration: 7 # days
       fbFeedRestaurants:
+    -
+      name: Mama Manoush
+      facebook-album-id: 951955061547382
+      menu-key-words: ['lunch']
+      menu-duration: 7 # days
+      fbFeedRestaurants:
     fbFeedRestaurants:
     -
       name: Setka
       facebook-id: setka.bar
-      menu-key-words: ['Menu lunchowe']
+      menu-key-words: ['menu lunchowe']
       menu-duration: 7 # days
