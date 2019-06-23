@@ -39,7 +39,22 @@ class LunchMenuControllerSpec extends Specification {
         result
                 .andExpect(status().isOk())
                 .andExpect(content().string('<img src="https://some.image.url"/>'))
+    }
 
+    def "should return 404 when lunch menu not found"() {
+        given:
+        def testRestaurant = 'test-restaurant'
+        menuService.findLunchMenu(_) >> Optional.empty()
+
+        when:
+        def result = mockMvc.perform(
+                get("/menu/lunch/$testRestaurant")
+                        .header("Accept", MediaType.TEXT_PLAIN)
+        )
+
+        then:
+        result
+                .andExpect(status().isNotFound())
     }
 
     @TestConfiguration

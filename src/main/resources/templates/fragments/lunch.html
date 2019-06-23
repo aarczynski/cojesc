@@ -1,0 +1,6 @@
+<div th:fragment="lunch(restaurant)">
+    <div th:attr="id=${restaurant}" v-html="lunch"></div>
+    <script th:inline="javascript">
+        getLunchMenu([[${restaurant}]])
+    </script>
+</div>
