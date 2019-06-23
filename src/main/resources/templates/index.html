@@ -18,8 +18,8 @@
 <script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2" async defer></script>
 
 <div id="vue-app">
-    <div class="row">
-        <div class="col-sm" v-for="r in restaurants">
+    <div class="row" v-for="i in rowCount">
+        <div class="col-sm" v-for="r in restaurantCountInRow(i)">
             <restaurant v-bind:name="r"></restaurant>
         </div>
     </div>
@@ -61,7 +61,8 @@
         el: '#vue-app',
         data() {
             return {
-                restaurants: []
+                restaurants: [],
+                restaurantsPerRow: 2
             }
         },
         methods: {
@@ -70,7 +71,15 @@
                     .then(response => {
                         this.restaurants = response.data;
                     })
+            },
+            restaurantCountInRow(index) {
+                return this.restaurants.slice((index - 1) * this.restaurantsPerRow, index * this.restaurantsPerRow)
             }
+        },
+        computed:{
+            rowCount() {
+                return Math.ceil(this.restaurants.length / this.restaurantsPerRow);
+            },
         },
         mounted() {
             this.supportedRestaurants();
