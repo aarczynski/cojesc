@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:/google-credentials.yaml")
+@PropertySource(value = "classpath:/google-credentials.yaml", ignoreResourceNotFound = true)
 public class GoogleClientConfig {
 
 }
