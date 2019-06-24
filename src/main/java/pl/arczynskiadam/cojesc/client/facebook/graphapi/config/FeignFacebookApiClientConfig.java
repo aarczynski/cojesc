@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 
-@PropertySource("classpath:/facebook-credentials.yaml")
+@PropertySource(value = "classpath:/facebook-credentials.yaml", ignoreResourceNotFound = true)
 @EnableConfigurationProperties(FacebookApiAuthProperties.class)
 public class FeignFacebookApiClientConfig {
 

@@ -39,30 +39,3 @@ dependencies {
     testImplementation 'com.github.tomakehurst:wiremock-standalone:2.23.2'
 }
 
-task ensureCredentialsExist {
-    doFirst {
-        if (!file("$rootDir/src/main/resources/facebook-credentials.yaml").exists()) {
-            throw new IllegalStateException(
-                    """\
-                    |Facebook API credentials not found. 
-					|Please create facebook-credentials.yaml file in resurces folder
-					|It must contain following keys:
-					|- cojesc.client.facebook.graphapi.appId
-					|- cojesc.client.facebook.graphapi.secret
-					""".stripMargin()
-            )
-        }
-        if (!file("$rootDir/src/main/resources/google-credentials.yaml").exists()) {
-            throw new IllegalStateException(
-                    """\
-                    |Gloogle Cloud Vision API credentials not found. 
-					|Please create google-credentials.yaml file in resurces folder
-                    |It must contain following key with path to google json key:
-                    |- cojesc.client.google.cloudvision.key-path
-					""".stripMargin()
-            )
-        }
-    }
-}
-
-assemble.dependsOn(ensureCredentialsExist)
