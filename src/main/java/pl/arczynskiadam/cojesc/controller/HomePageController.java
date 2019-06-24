@@ -13,4 +13,9 @@ public class HomePageController {
         log.info("Homepage visited");
         return "index";
     }
+
+    @GetMapping("/cojesc")
+    public String cojesc() {
+        return "forward:/";
+    }
 }
