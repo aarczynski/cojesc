@@ -6,33 +6,33 @@ cojesc:
     eviction: 0 0 0 * * *
   restaurants:
     fbAlbumRestaurants:
-    -
-      name: Wrocławska
-      facebook-id: wroclawska.wroclaw
-      facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-      menu-key-words: ['lunch', 'menu', 'wrocławska', 'gastropub']
-      menu-duration: 7 # days
-    -
-      name: Pod Latarniami
-      facebook-id: podlatarniami
-      facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-      menu-key-words: ['pod', 'latarniami', 'lunch']
-      menu-duration: 7 # days
-    -
-      name: Doctors' Bar
-      facebook-id: 226124174506353
-      facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-      menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
-      menu-duration: 6 # days
-    -
-      name: Mama Manoush
-      facebook-id: mama.manousch
-      facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-      menu-key-words: ['lunch']
-      menu-duration: 6 # days
+      - name: Wrocławska
+        facebook-id: wroclawska.wroclaw
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['lunch', 'menu', 'wrocławska', 'gastropub']
+        menu-duration: 7 # days
+      - name: Mama Manoush
+        facebook-id: mama.manousch
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['lunch']
+        menu-duration: 6 # days
+      - name: Sukiennice 7
+        facebook-id: sukiennice7restaurant
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['lunch', 'menu']
+        menu-duration: 7 # days
+      - name: Pod Latarniami
+        facebook-id: podlatarniami
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['pod', 'latarniami', 'lunch']
+        menu-duration: 7 # days
+      - name: Doctors' Bar
+        facebook-id: 226124174506353
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
+        menu-duration: 6 # days
     fbFeedRestaurants:
-    -
-      name: Setka
-      facebook-id: setka.bar
-      menu-key-words: ['menu lunchowe']
-      menu-duration: 7 # days
+      - name: Setka
+        facebook-id: setka.bar
+        menu-key-words: ['menu lunchowe']
+        menu-duration: 7 # days
