@@ -54,7 +54,12 @@
         mounted() {
             this.getLunchMenu(this.name);
         },
-        template: '<div class="lunch-container" v-html="lunch"></div>'
+        template: `
+            <div class="lunch-container">
+                <div class="restaurant-header">{{this.name}}</div>
+                <div class="restaurant-menu" v-html="lunch"></div>
+            </div>
+        `
     });
 
     new Vue({
