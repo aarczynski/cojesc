@@ -20,7 +20,8 @@ class FacebookAlbumMenuServiceSpec extends Specification {
     private static final Albums ALBUMS = new Albums([
             data: [
                     new Album(id: 'album-1', name: 'album one'),
-                    new Album(id: 'album-2', name: 'album two')
+                    new Album(id: 'album-2', name: 'album two'),
+                    new Album(id: 'album-3', name: 'album three')
             ]
     ])
 
@@ -38,7 +39,8 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
         restaurant = new FacebookAlbumRestaurant(
                 facebookId: FACEBOOK_ID,
-                menuDuration: 1
+                menuDuration: 1,
+                facebookAlbumsToSearch: ['album one', 'album two']
         )
 
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/not-lunch-img-link.jpg'), _) >> false
@@ -83,6 +85,25 @@ class FacebookAlbumMenuServiceSpec extends Specification {
         given:
         facebookClient.getPhotos(_) >> new Photos(
                 data: [ notLunchImageGroup() ]
+        )
+
+        when:
+        def link = service.getLunchMenuImageLink(restaurant)
+
+        then:
+        link.isEmpty()
+    }
+
+    def "should search only in specified albums"() {
+        given:
+        facebookClient.getPhotos('album-1') >> new Photos(
+                data: [ ]
+        )
+        facebookClient.getPhotos('album-2') >> new Photos(
+                data: [ ]
+        )
+        facebookClient.getPhotos('album-3') >> new Photos(
+                data: [ upToDateLunchImageGroup() ]
         )
 
         when:

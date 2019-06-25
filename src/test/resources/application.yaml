@@ -8,6 +8,7 @@ cojesc:
       -
         name: test-restaurant
         facebook-album-id: 123456789
+        facebook-albums-to-search: ['test album 1']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
 spring:

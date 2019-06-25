@@ -36,10 +36,15 @@ public class FacebookAlbumMenuService {
     public Optional<String> getLunchMenuImageLink(FacebookAlbumRestaurant restaurant) {
         var images = facebookClient.getAlbums(restaurant.getFacebookId()).getData()
                 .stream()
+                .filter(albumToSearch(restaurant))
                 .map(getAlbumPhotos())
                 .flatMap(getPhotosData())
                 .collect(toList());
         return findNewestLunchMenuImageLink(images, restaurant);
+    }
+
+    private Predicate<Album> albumToSearch(FacebookAlbumRestaurant restaurant) {
+        return album -> restaurant.getFacebookAlbumsToSearch().contains(album.getName());
     }
 
     private Function<Album, Photos> getAlbumPhotos() {

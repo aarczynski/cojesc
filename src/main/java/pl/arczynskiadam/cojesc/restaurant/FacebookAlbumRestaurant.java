@@ -8,5 +8,5 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class FacebookAlbumRestaurant extends FacebookRestaurant {
-
+    private String facebookAlbumsToSearch;
 }
