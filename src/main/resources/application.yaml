@@ -11,7 +11,7 @@ cojesc:
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
-      - name: Mama Manoush
+      - name: Mama Manousch
         facebook-id: mama.manousch
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['lunch']
