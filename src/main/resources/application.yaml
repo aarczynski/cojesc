@@ -30,6 +30,12 @@ cojesc:
       facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
       menu-key-words: ['lunch']
       menu-duration: 6 # days
+    -
+      name: Sukiennice 7
+      facebook-id: sukiennice7restaurant
+      facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+      menu-key-words: ['lunch', 'menu']
+      menu-duration: 7 # days
     fbFeedRestaurants:
     -
       name: Setka
