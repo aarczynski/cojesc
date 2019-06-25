@@ -2,8 +2,10 @@ package pl.arczynskiadam.cojesc.service
 
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.FacebookApiClient
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album
+import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Albums
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup
+import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Photos
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient
 import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant
 import spock.lang.Specification
@@ -14,7 +16,14 @@ import java.time.ZonedDateTime
 
 class FacebookAlbumMenuServiceSpec extends Specification {
 
-    private static final String FACEBOOK_ALBUM_ID = '123456789'
+    private static final String FACEBOOK_ID = '123456789'
+    private static final Albums ALBUMS = new Albums([
+            data: [
+                    new Album(id: 'album-1', name: 'album one'),
+                    new Album(id: 'album-2', name: 'album two'),
+                    new Album(id: 'album-3', name: 'album three')
+            ]
+    ])
 
     private FacebookApiClient facebookClient
     private GoogleOcrClient ocrClient
@@ -29,8 +38,9 @@ class FacebookAlbumMenuServiceSpec extends Specification {
         service = new FacebookAlbumMenuService(facebookClient, ocrClient)
 
         restaurant = new FacebookAlbumRestaurant(
-                facebookAlbumId: FACEBOOK_ALBUM_ID,
-                menuDuration: 1
+                facebookId: FACEBOOK_ID,
+                menuDuration: 1,
+                facebookAlbumsToSearch: ['album one', 'album two']
         )
 
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/not-lunch-img-link.jpg'), _) >> false
@@ -38,16 +48,17 @@ class FacebookAlbumMenuServiceSpec extends Specification {
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/new-lunch-img-link-big.jpg'), _) >> true
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/old-lunch-img-link-small.jpg'), _) >> true
         ocrClient.imageContainsKeywords(new URL('http://www.some-host.com/old-lunch-img-link-big.jpg'), _) >> true
+
+        facebookClient.getAlbums(FACEBOOK_ID) >> ALBUMS
     }
 
     def "should return newest lunch img"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Album(
-                data: [
-                        notLunchImageGroup(),
-                        outOfDateLunchImageGroup(),
-                        upToDateLunchImageGroup()
-                ]
+        facebookClient.getPhotos('album-1') >> new Photos(
+                data: [ notLunchImageGroup(), outOfDateLunchImageGroup() ]
+        )
+        facebookClient.getPhotos('album-2') >> new Photos(
+                data: [ upToDateLunchImageGroup() ]
         )
 
         when:
@@ -59,7 +70,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return empty optional when there is no up to date menu"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Album(
+        facebookClient.getPhotos(_) >> new Photos(
                 data: [ outOfDateLunchImageGroup() ]
         )
 
@@ -72,8 +83,27 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return empty optional when there is no menu"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Album(
+        facebookClient.getPhotos(_) >> new Photos(
                 data: [ notLunchImageGroup() ]
+        )
+
+        when:
+        def link = service.getLunchMenuImageLink(restaurant)
+
+        then:
+        link.isEmpty()
+    }
+
+    def "should search only in specified albums"() {
+        given:
+        facebookClient.getPhotos('album-1') >> new Photos(
+                data: [ ]
+        )
+        facebookClient.getPhotos('album-2') >> new Photos(
+                data: [ ]
+        )
+        facebookClient.getPhotos('album-3') >> new Photos(
+                data: [ upToDateLunchImageGroup() ]
         )
 
         when:

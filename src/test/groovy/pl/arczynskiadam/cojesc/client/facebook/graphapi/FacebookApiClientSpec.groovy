@@ -40,29 +40,69 @@ class FacebookApiClientSpec extends Specification {
         wireMockServer.shutdown()
     }
 
-    def "should perform http request and unmarshal response"() {
+    def "should perform http request for posts and unmarshal response"() {
+        given:
+        wireMockServer.stubFor(
+                WireMock.get(WireMock.urlMatching('/v3.3/[0-9a-zA-Z]+/posts\\?.*'))
+                        .willReturn(WireMock.aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                                .withBody(facebookPostsResponseJson())
+                        )
+        )
+
+        when:
+        def posts = facebookClient.getPosts('restaurant')
+
+        then:
+        posts.data*.message == [ 'message 1', 'message 2' ]
+        posts.data*.permalink == [ 'https://url1', 'https://url2' ]
+    }
+
+    def "should perform http request for photos and unmarshal response"() {
         given:
         wireMockServer.stubFor(
                 WireMock.get(WireMock.urlMatching('/v3.3/[0-9]+/photos\\?.*'))
                         .willReturn(WireMock.aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
-                        .withBody(facebookAlbumResponseJson())
+                        .withBody(facebookPhotosResponseJson())
                 )
         )
 
         when:
-        def album = facebookClient.getAlbum('111')
+        def photos = facebookClient.getPhotos('111')
 
         then:
-        album.data*.images*.source.flatten() == [
+        photos.data*.images*.source.flatten() == [
                 'https://some.url/img1.jpg',
                 'https://some.url/img2.jpg',
                 'https://some.url/img3.jpg'
         ]
     }
 
-    private static String facebookAlbumResponseJson() {
+    def "should perform http request for albums and unmarshal response"() {
+        given:
+        wireMockServer.stubFor(
+                WireMock.get(WireMock.urlMatching('/v3.3/[0-9a-zA-Z]+/albums\\?.*'))
+                        .willReturn(WireMock.aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                                .withBody(facebookAlbumsResponseJson())
+                        )
+        )
+
+        when:
+        def albums = facebookClient.getAlbums('restaurant')
+
+        then:
+        albums.data*.name == [
+                'Mobile Uploads',
+                'Timeline Photos'
+        ]
+    }
+
+    private static String facebookPhotosResponseJson() {
         """\
         {
             "data": [
@@ -94,6 +134,46 @@ class FacebookApiClientSpec extends Specification {
                     "id": "1111222233334444"
                 }
             ]
+        }
+        """.stripIndent()
+    }
+
+    private static String facebookAlbumsResponseJson() {
+        """\
+        {
+           "data": [
+              {
+                 "created_time": "2017-10-10T10:10:10+0000",
+                 "name": "Mobile Uploads",
+                 "id": "111222333444555"
+              },
+              {
+                 "created_time": "2017-01-01T17:17:17+0000",
+                 "name": "Timeline Photos",
+                 "id": "111112222233333"
+              }
+           ]
+        }
+        """.stripIndent()
+    }
+
+    private static String facebookPostsResponseJson() {
+        """\
+        {
+           "data": [
+              {
+                 "created_time": "2019-02-02T07:10:07+0000",
+                 "message": "message 1",
+                 "id": "111112222233333_111112222233333",
+                 "permalink_url": "https://url1"
+              },
+              {
+                 "created_time": "2019-02-02T07:15:07+0000",
+                 "message": "message 2",
+                 "id": "111222333444555_111222333444555",
+                 "permalink_url": "https://url2"
+              }
+           ]
         }
         """.stripIndent()
     }
