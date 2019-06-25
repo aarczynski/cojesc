@@ -40,14 +40,14 @@ class FacebookApiClientSpec extends Specification {
         wireMockServer.shutdown()
     }
 
-    def "should perform http request and unmarshal response"() {
+    def "should perform http request for photos and unmarshal response"() {
         given:
         wireMockServer.stubFor(
                 WireMock.get(WireMock.urlMatching('/v3.3/[0-9]+/photos\\?.*'))
                         .willReturn(WireMock.aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
-                        .withBody(facebookAlbumResponseJson())
+                        .withBody(facebookPhotosResponseJson())
                 )
         )
 
@@ -62,7 +62,28 @@ class FacebookApiClientSpec extends Specification {
         ]
     }
 
-    private static String facebookAlbumResponseJson() {
+    def "should perform http request for albums and unmarshal response"() {
+        given:
+        wireMockServer.stubFor(
+                WireMock.get(WireMock.urlMatching('/v3.3/[0-9a-zA-Z]+/albums\\?.*'))
+                        .willReturn(WireMock.aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                                .withBody(facebookAlbumsResponseJson())
+                        )
+        )
+
+        when:
+        def albums = facebookClient.getAlbums('restaurant')
+
+        then:
+        albums.data*.name == [
+                'Mobile Uploads',
+                'Timeline Photos'
+        ]
+    }
+
+    private static String facebookPhotosResponseJson() {
         """\
         {
             "data": [
@@ -94,6 +115,25 @@ class FacebookApiClientSpec extends Specification {
                     "id": "1111222233334444"
                 }
             ]
+        }
+        """.stripIndent()
+    }
+
+    private static String facebookAlbumsResponseJson() {
+        """\
+        {
+           "data": [
+              {
+                 "created_time": "2017-10-10T10:10:10+0000",
+                 "name": "Mobile Uploads",
+                 "id": "111222333444555"
+              },
+              {
+                 "created_time": "2017-01-01T17:17:17+0000",
+                 "name": "Timeline Photos",
+                 "id": "111112222233333"
+              }
+           ]
         }
         """.stripIndent()
     }
