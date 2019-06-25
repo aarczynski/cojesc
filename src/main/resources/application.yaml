@@ -21,13 +21,13 @@ cojesc:
       name: Doctor's Bar
       facebook-album-id: 239073499878087
       menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
-      menu-duration: 7 # days
+      menu-duration: 6 # days
       fbFeedRestaurants:
     -
       name: Mama Manoush
       facebook-album-id: 951955061547382
       menu-key-words: ['lunch']
-      menu-duration: 7 # days
+      menu-duration: 6 # days
       fbFeedRestaurants:
     fbFeedRestaurants:
     -
