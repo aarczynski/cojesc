@@ -2,7 +2,6 @@ logging.level.org.springframework.cache: TRACE
 cojesc:
   http.client.facebook.url: https://graph.facebook.com
   cache:
-    name: lunch
     eviction: 0 0 0 * * *
   restaurants:
     fbAlbumRestaurants:

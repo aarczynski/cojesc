@@ -1,7 +1,6 @@
 package pl.arczynskiadam.cojesc.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,8 +17,7 @@ import java.util.function.Function;
 @Service
 public class MenuService {
 
-    @Value("${cojesc.cache.name}")
-    private String cacheName;
+    private static final String CACHE_NAME = "lunch-menu";
 
     private FacebookAlbumMenuService facebookAlbumMenuService;
     private FacebookFeedMenuService facebookFeedMenuService;
@@ -31,7 +29,7 @@ public class MenuService {
         this.htmlRetrieveService = htmlRetrieveService;
     }
 
-    @Cacheable(cacheNames = { "#{cojesc.cache.name}" }, unless = "#result == null")
+    @Cacheable(cacheNames = { CACHE_NAME }, unless = "#result == null")
     public Optional<String> findLunchMenu(Restaurant restaurant) {
         log.info("Lunch menu for {} not found in cache - downloading from the Internet", restaurant.getName());
         if (restaurant instanceof FacebookAlbumRestaurant) {
@@ -52,8 +50,8 @@ public class MenuService {
     }
 
     @Scheduled(cron = "${cojesc.cache.eviction}")
-    @CacheEvict(cacheNames = { "#{cojesc.cache.name}" }, allEntries = true)
+    @CacheEvict(cacheNames = { CACHE_NAME }, allEntries = true)
     public void clearCache() {
-        log.info("Lunch menu cache evicted");
+        log.info("{} cache evicted", CACHE_NAME);
     }
 }
