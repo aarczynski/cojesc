@@ -9,7 +9,7 @@ cojesc:
       - name: Wrocławska
         facebook-id: wroclawska.wroclaw
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['lunch', 'menu', 'wrocławska', 'gastropub']
+        menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
       - name: Mama Manoush
         facebook-id: mama.manousch
@@ -24,12 +24,12 @@ cojesc:
       - name: Pod Latarniami
         facebook-id: podlatarniami
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['pod', 'latarniami', 'lunch']
+        menu-key-words: ['lunch']
         menu-duration: 7 # days
       - name: Doctors' Bar
         facebook-id: 226124174506353
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
+        menu-key-words: ['lunch', 'menu']
         menu-duration: 6 # days
     fbFeedRestaurants:
       - name: Setka
