@@ -52,10 +52,10 @@ class FacebookApiClientSpec extends Specification {
         )
 
         when:
-        def album = facebookClient.getAlbum('111')
+        def photos = facebookClient.getPhotos('111')
 
         then:
-        album.data*.images*.source.flatten() == [
+        photos.data*.images*.source.flatten() == [
                 'https://some.url/img1.jpg',
                 'https://some.url/img2.jpg',
                 'https://some.url/img3.jpg'

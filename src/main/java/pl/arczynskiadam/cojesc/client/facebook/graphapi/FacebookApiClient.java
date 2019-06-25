@@ -11,7 +11,7 @@ import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.feed.Feed;
 public interface FacebookApiClient {
 
     @RequestMapping("/v3.3/{albumId}/photos?fields=images,created_time")
-    Photos getAlbum(@PathVariable("albumId") String albumId);
+    Photos getPhotos(@PathVariable("albumId") String albumId);
 
     @RequestMapping("/v3.3/{restaurantId}/posts?fields=message,permalink_url,created_time")
     Feed getPosts(@PathVariable("restaurantId") String restaurantId);

@@ -29,8 +29,8 @@ public class FacebookAlbumMenuService {
     }
 
     public Optional<String> getLunchMenuImageLink(FacebookAlbumRestaurant restaurant) {
-        var album = facebookClient.getAlbum(restaurant.getFacebookAlbumId());
-        return findNewestLunchMenuImageLink(album, restaurant);
+        var photos = facebookClient.getPhotos(restaurant.getFacebookAlbumId());
+        return findNewestLunchMenuImageLink(photos, restaurant);
     }
 
     private Optional<String> findNewestLunchMenuImageLink(Photos photos, Restaurant restaurant) {

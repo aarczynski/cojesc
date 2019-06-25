@@ -42,7 +42,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return newest lunch img"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Photos(
+        facebookClient.getPhotos(FACEBOOK_ALBUM_ID) >> new Photos(
                 data: [
                         notLunchImageGroup(),
                         outOfDateLunchImageGroup(),
@@ -59,7 +59,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return empty optional when there is no up to date menu"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Photos(
+        facebookClient.getPhotos(FACEBOOK_ALBUM_ID) >> new Photos(
                 data: [ outOfDateLunchImageGroup() ]
         )
 
@@ -72,7 +72,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return empty optional when there is no menu"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Photos(
+        facebookClient.getPhotos(FACEBOOK_ALBUM_ID) >> new Photos(
                 data: [ notLunchImageGroup() ]
         )
 
