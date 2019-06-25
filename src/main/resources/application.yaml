@@ -19,7 +19,7 @@ cojesc:
       menu-key-words: ['pod', 'latarniami', 'lunch']
       menu-duration: 7 # days
     -
-      name: Doctor's Bar
+      name: Doctors' Bar
       facebook-id: 226124174506353
       facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
       menu-key-words: ['doctors', 'bar', 'lunch', 'menu']
