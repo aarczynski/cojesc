@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.FacebookFeedRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
+import pl.arczynskiadam.cojesc.util.UrlUtil;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 @Slf4j
 @Service
@@ -21,10 +23,12 @@ public class MenuService {
 
     private FacebookAlbumMenuService facebookAlbumMenuService;
     private FacebookFeedMenuService facebookFeedMenuService;
+    private HtmlRetrieveService htmlRetrieveService;
 
-    public MenuService(FacebookAlbumMenuService facebookAlbumMenuService, FacebookFeedMenuService facebookFeedMenuService) {
+    public MenuService(FacebookAlbumMenuService facebookAlbumMenuService, FacebookFeedMenuService facebookFeedMenuService, HtmlRetrieveService htmlRetrieveService) {
         this.facebookAlbumMenuService = facebookAlbumMenuService;
         this.facebookFeedMenuService = facebookFeedMenuService;
+        this.htmlRetrieveService = htmlRetrieveService;
     }
 
     @Cacheable(cacheNames = { "#{cojesc.cache.name}" }, unless = "#result == null")
@@ -36,11 +40,15 @@ public class MenuService {
         }
         if (restaurant instanceof FacebookFeedRestaurant) {
             return facebookFeedMenuService.getLunchMenuLink((FacebookFeedRestaurant) restaurant)
-                    .map(url -> String.format("<div class=\"fb-post\" data-href=\"%s\"></div>", url));
+                    .map(getFirstByCssClass("_4-u2 _39j6 _4-u8"));
         }
 
         log.info("Lunch menu for {} not found in the Internet", restaurant);
         return Optional.empty();
+    }
+
+    private Function<String, String> getFirstByCssClass(String cssClass) {
+        return permalink -> htmlRetrieveService.fetchByCssClass(UrlUtil.toUrl(permalink), cssClass).get(0);
     }
 
     @Scheduled(cron = "${cojesc.cache.eviction}")
