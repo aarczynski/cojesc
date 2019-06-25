@@ -24,7 +24,7 @@ cojesc:
       - name: Pod Latarniami
         facebook-id: podlatarniami
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['lunch']
+        menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
       - name: Doctors' Bar
         facebook-id: 226124174506353
