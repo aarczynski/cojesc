@@ -7,6 +7,6 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class FacebookRestaurant extends Restaurant {
+public abstract class FacebookRestaurant extends Restaurant {
     private String facebookId;
 }

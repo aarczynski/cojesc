@@ -4,9 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class FacebookAlbumRestaurant extends FacebookRestaurant {
-    private String facebookAlbumsToSearch;
+    private List<String> facebookAlbumsToSearch;
 }
