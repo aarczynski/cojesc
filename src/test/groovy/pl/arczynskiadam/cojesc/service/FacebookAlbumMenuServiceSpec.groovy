@@ -1,7 +1,7 @@
 package pl.arczynskiadam.cojesc.service
 
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.FacebookApiClient
-import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album
+import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Photos
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient
@@ -42,7 +42,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return newest lunch img"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Album(
+        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Photos(
                 data: [
                         notLunchImageGroup(),
                         outOfDateLunchImageGroup(),
@@ -59,7 +59,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return empty optional when there is no up to date menu"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Album(
+        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Photos(
                 data: [ outOfDateLunchImageGroup() ]
         )
 
@@ -72,7 +72,7 @@ class FacebookAlbumMenuServiceSpec extends Specification {
 
     def "should return empty optional when there is no menu"() {
         given:
-        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Album(
+        facebookClient.getAlbum(FACEBOOK_ALBUM_ID) >> new Photos(
                 data: [ notLunchImageGroup() ]
         )
 

@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Album {
+public class Photos {
     private List<ImageGroup> data;
 }

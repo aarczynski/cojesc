@@ -2,7 +2,7 @@ package pl.arczynskiadam.cojesc.service;
 
 import org.springframework.stereotype.Service;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.FacebookApiClient;
-import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album;
+import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Photos;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Image;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup;
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient;
@@ -33,8 +33,8 @@ public class FacebookAlbumMenuService {
         return findNewestLunchMenuImageLink(album, restaurant);
     }
 
-    private Optional<String> findNewestLunchMenuImageLink(Album album, Restaurant restaurant) {
-        return album.getData().stream()
+    private Optional<String> findNewestLunchMenuImageLink(Photos photos, Restaurant restaurant) {
+        return photos.getData().stream()
                 .filter(after(expectedMenuPublishDate(restaurant)))
                 .map(ImageGroup::findBiggestImage)
                 .filter(menuImagesOnly(restaurant))
