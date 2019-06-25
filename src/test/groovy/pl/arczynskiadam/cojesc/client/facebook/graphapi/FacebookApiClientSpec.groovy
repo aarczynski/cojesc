@@ -40,6 +40,25 @@ class FacebookApiClientSpec extends Specification {
         wireMockServer.shutdown()
     }
 
+    def "should perform http request for posts and unmarshal response"() {
+        given:
+        wireMockServer.stubFor(
+                WireMock.get(WireMock.urlMatching('/v3.3/[0-9a-zA-Z]+/posts\\?.*'))
+                        .willReturn(WireMock.aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type", "application/json")
+                                .withBody(facebookPostsResponseJson())
+                        )
+        )
+
+        when:
+        def posts = facebookClient.getPosts('restaurant')
+
+        then:
+        posts.data*.message == [ 'message 1', 'message 2' ]
+        posts.data*.permalink == [ 'https://url1', 'https://url2' ]
+    }
+
     def "should perform http request for photos and unmarshal response"() {
         given:
         wireMockServer.stubFor(
@@ -132,6 +151,27 @@ class FacebookApiClientSpec extends Specification {
                  "created_time": "2017-01-01T17:17:17+0000",
                  "name": "Timeline Photos",
                  "id": "111112222233333"
+              }
+           ]
+        }
+        """.stripIndent()
+    }
+
+    private static String facebookPostsResponseJson() {
+        """\
+        {
+           "data": [
+              {
+                 "created_time": "2019-02-02T07:10:07+0000",
+                 "message": "message 1",
+                 "id": "111112222233333_111112222233333",
+                 "permalink_url": "https://url1"
+              },
+              {
+                 "created_time": "2019-02-02T07:15:07+0000",
+                 "message": "message 2",
+                 "id": "111222333444555_111222333444555",
+                 "permalink_url": "https://url2"
               }
            ]
         }
