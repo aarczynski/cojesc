@@ -15,8 +15,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2" async defer></script>
-
 <div id="vue-app">
     <div class="row" v-for="i in rowCount">
         <div class="col-sm" v-for="r in restaurantCountInRow(i)">
@@ -38,9 +36,6 @@
                 axios.get(`/restaurants/${this.name}/lunch`)
                     .then(response => {
                         this.lunch = response.data;
-                        setTimeout(() => {
-                            FB.XFBML.parse()
-                        }, 0);
                     })
                     .catch(error => {
                         if (error.response.status === 404) {
