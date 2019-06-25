@@ -7,7 +7,7 @@
     padding: 40px 0;
 }
 ._4lmk {
-    font-size: 40px;
+    font-size: 2em;
     -webkit-font-smoothing: antialiased;
     margin: 0 auto 12px;
     word-wrap: break-word;
@@ -17,13 +17,10 @@
     text-align: left;
     padding-left: 3em;
 }
-._2yud {
-    font-family: Helvetica, Arial, sans-serif;
+._3uhg {
+    display: none;
 }
-._2yud a:link, a:visited {
-    color: gray;
-}
-#facebook ._5s6c._5s6c, ._5s6c {
+._5s6c._5s6c, ._5s6c {
     font-family: Georgia, serif;
     letter-spacing: normal;
 }
