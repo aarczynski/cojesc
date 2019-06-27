@@ -29,7 +29,7 @@ public class MenuService {
         this.htmlRetrieveService = htmlRetrieveService;
     }
 
-    @Cacheable(cacheNames = { CACHE_NAME }, unless = "#result == null")
+    @Cacheable(cacheNames = { CACHE_NAME }, key = "#restaurant.name", unless = "#result == null")
     public Optional<String> findLunchMenu(Restaurant restaurant) {
         log.info("Lunch menu for {} not found in cache - downloading from the Internet", restaurant.getName());
         if (restaurant instanceof FacebookAlbumRestaurant) {
