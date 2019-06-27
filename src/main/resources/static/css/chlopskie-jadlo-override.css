@@ -1,16 +1,18 @@
-.fusion-fullwidth {
-    background-color: white;
-}
 .fusion-column-last {
     margin: 0px 0 20px;
 }
 .fusion-one-full {
     float: none;
 }
+.fusion-row {
+    overflow: hidden !important;
+}
+.fusion-fullwidth {
+    padding: 0 !important;
+}
 .fusion-layout-column {
-    position: relative;
+    background-color: white;
     float: left;
-    margin-bottom: 20px;
 }
 .fusion-spacing-no.fusion-one-half {
     width: 50%;
@@ -18,10 +20,15 @@
 .fusion-column-wrapper {
     height: 250px;
     width: auto;
+    padding: 3% !important;
 }
 .fusion-column-wrapper table {
+    width: 100% !important;
     font-family: Arial, Helvetica, sans-serif;
     text-align: left;
+}
+.fusion-column-wrapper table td {
+    width: 100% !important;
 }
 .fusion-column-wrapper h1 {
     font-family: Arial, Helvetica, sans-serif;
