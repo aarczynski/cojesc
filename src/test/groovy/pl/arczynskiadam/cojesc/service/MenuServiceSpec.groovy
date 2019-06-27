@@ -27,7 +27,7 @@ class MenuServiceSpec extends Specification {
     @Autowired
     private CacheManager cacheManager
 
-    void setup() {
+    void cleanup() {
         cacheManager.getCacheNames().each {
             cacheManager.getCache(it).clear()
         }
