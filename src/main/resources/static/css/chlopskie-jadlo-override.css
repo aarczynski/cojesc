@@ -1,0 +1,29 @@
+.fusion-fullwidth {
+    background-color: white;
+}
+.fusion-column-last {
+    margin: 0px 0 20px;
+}
+.fusion-one-full {
+    float: none;
+}
+.fusion-layout-column {
+    position: relative;
+    float: left;
+    margin-bottom: 20px;
+}
+.fusion-spacing-no.fusion-one-half {
+    width: 50%;
+}
+.fusion-column-wrapper {
+    height: 250px;
+    width: auto;
+}
+.fusion-column-wrapper table {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+.fusion-column-wrapper h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+}
