@@ -3,16 +3,12 @@ package pl.arczynskiadam.cojesc.controller
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Primary
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant
 import pl.arczynskiadam.cojesc.restaurant.Restaurants
 import pl.arczynskiadam.cojesc.service.MenuService
 import spock.lang.Specification
-import spock.mock.DetachedMockFactory
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -81,16 +77,5 @@ class LunchMenuControllerSpec extends Specification {
         result
                 .andExpect(status().isOk())
                 .andExpect(content().string('["test-restaurant-1","test-restaurant-2"]'))
-    }
-
-    @TestConfiguration
-    static class MockMenuService {
-        private final DetachedMockFactory factory = new DetachedMockFactory()
-
-        @Bean
-        @Primary
-        MenuService menuService() {
-            return factory.Mock(MenuService)
-        }
     }
 }

@@ -12,6 +12,9 @@ class RestaurantsSpec extends Specification {
             ],
             fbFeedRestaurants: [
                     new FacebookFeedRestaurant(name: 'restaurant2')
+            ],
+            wwwRestaurants: [
+                    new WwwRestaurant(name: 'restaurant3')
             ]
     )
 
@@ -24,13 +27,10 @@ class RestaurantsSpec extends Specification {
     }
 
     def "should find all restaurants"() {
-        given:
-
-
         when:
         def restaurants = RESTAURANTS.getAll()
 
         then:
-        restaurants*.name == ['restaurant1', 'restaurant2']
+        restaurants*.name == ['restaurant1', 'restaurant2', 'restaurant3']
     }
 }

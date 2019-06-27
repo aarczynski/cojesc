@@ -4,6 +4,11 @@ cojesc:
   cache:
     eviction: 0 0 0 * * *
   restaurants:
+    wwwRestaurants:
+      - name: Chłopskie Jadło
+        wwwAddress: http://www.chlopskiejadlo.pl/pl/lunch-dnia/
+        cssClass: fusion-fullwidth
+        menu-duration: 7 # days
     fbAlbumRestaurants:
       - name: Wrocławska
         facebook-id: wroclawska.wroclaw
