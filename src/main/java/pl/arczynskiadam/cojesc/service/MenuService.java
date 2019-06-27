@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.FacebookFeedRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
-import pl.arczynskiadam.cojesc.util.UrlUtil;
+import pl.arczynskiadam.cojesc.restaurant.WwwRestaurant;
 
 import java.util.Optional;
 import java.util.function.Function;
+
+import static pl.arczynskiadam.cojesc.util.UrlUtil.toUrl;
 
 @Slf4j
 @Service
@@ -40,13 +42,17 @@ public class MenuService {
             return facebookFeedMenuService.getLunchMenuLink((FacebookFeedRestaurant) restaurant)
                     .map(getFirstByCssClass("_4-u2 _39j6 _4-u8"));
         }
+        if (restaurant instanceof WwwRestaurant) {
+            var r = (WwwRestaurant) restaurant;
+            return Optional.of(String.join("", htmlRetrieveService.fetchByCssClass(toUrl(r.getWwwAddress()), r.getCssClass())));
+        }
 
         log.info("Lunch menu for {} not found in the Internet", restaurant);
         return Optional.empty();
     }
 
     private Function<String, String> getFirstByCssClass(String cssClass) {
-        return permalink -> htmlRetrieveService.fetchByCssClass(UrlUtil.toUrl(permalink), cssClass).get(0);
+        return permalink -> htmlRetrieveService.fetchByCssClass(toUrl(permalink), cssClass).get(0);
     }
 
     @Scheduled(cron = "${cojesc.cache.eviction}")
