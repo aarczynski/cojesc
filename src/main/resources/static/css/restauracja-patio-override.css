@@ -1,0 +1,9 @@
+.content--text {
+    text-align: left;
+    background-color: white;
+    padding: 5px;
+    margin: 0;
+}
+.button--content {
+    display: none;
+}
