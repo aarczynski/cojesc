@@ -41,6 +41,6 @@ public class HtmlRetrieveService {
         return Optional.ofNullable(doc
                 .body()
                 .getElementById(htmlId)
-                .html());
+                .toString());
     }
 }
