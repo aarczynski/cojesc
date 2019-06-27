@@ -9,21 +9,28 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 @Data
 @Component
 @ConfigurationProperties(prefix = "cojesc.restaurants")
 public class Restaurants {
-    List<FacebookAlbumRestaurant> fbAlbumRestaurants = Collections.emptyList();
-    List<FacebookFeedRestaurant> fbFeedRestaurants = Collections.emptyList();
+    private List<FacebookAlbumRestaurant> fbAlbumRestaurants = Collections.emptyList();
+    private List<FacebookFeedRestaurant> fbFeedRestaurants = Collections.emptyList();
+    private List<WwwRestaurant> wwwRestaurants = Collections.emptyList();
 
     public List<Restaurant> getAll() {
-        return Stream.concat(fbAlbumRestaurants.stream(), fbFeedRestaurants.stream()).collect(toList());
+        return Stream.of(
+                fbAlbumRestaurants.stream(),
+                fbFeedRestaurants.stream(),
+                wwwRestaurants.stream()
+        ).reduce(Stream::concat).
+                orElseGet(Stream::empty)
+                .collect(toUnmodifiableList());
     }
 
     public Restaurant getByName(String name) {
-        return Stream.concat(fbAlbumRestaurants.stream(), fbFeedRestaurants.stream())
+        return getAll().stream()
                 .filter(r -> r.getName().equals(name))
                 .findFirst()
                 .orElseThrow(noSuchRestaurantException(name));
