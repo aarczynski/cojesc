@@ -9,4 +9,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public abstract class FacebookRestaurant extends Restaurant {
     private String facebookId;
+    private String[] menuKeyWords;
 }

@@ -8,6 +8,7 @@ import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.ImageGroup;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Photos;
 import pl.arczynskiadam.cojesc.client.google.ocr.GoogleOcrClient;
 import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant;
+import pl.arczynskiadam.cojesc.restaurant.FacebookRestaurant;
 import pl.arczynskiadam.cojesc.restaurant.Restaurant;
 
 import java.time.Duration;
@@ -55,7 +56,7 @@ public class FacebookAlbumMenuService {
         return photos -> photos.getData().stream();
     }
 
-    private Optional<String> findNewestLunchMenuImageLink(List<ImageGroup> images, Restaurant restaurant) {
+    private Optional<String> findNewestLunchMenuImageLink(List<ImageGroup> images, FacebookRestaurant restaurant) {
         return images.stream()
                 .filter(after(expectedMenuPublishDate(restaurant)))
                 .map(ImageGroup::findBiggestImage)
@@ -68,7 +69,7 @@ public class FacebookAlbumMenuService {
         return imgGr -> imgGr.getCreatedTime().isAfter(time);
     }
 
-    private Predicate<Image> menuImagesOnly(Restaurant restaurant) {
+    private Predicate<Image> menuImagesOnly(FacebookRestaurant restaurant) {
         return img -> ocrClient.imageContainsKeywords(toUrl(img.getSource()), restaurant.getMenuKeyWords());
     }
 
