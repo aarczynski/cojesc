@@ -1,5 +1,6 @@
 package pl.arczynskiadam.cojesc.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.FacebookApiClient;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.feed.Post;
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.HOURS;
 
+@Slf4j
 @Service
 public class FacebookFeedMenuService {
     private FacebookApiClient facebookClient;
@@ -25,11 +27,18 @@ public class FacebookFeedMenuService {
 
     public Optional<String> getLunchMenuLink(FacebookFeedRestaurant restaurant) {
         var feed = facebookClient.getPosts(restaurant.getFacebookId());
-        return feed.getData().stream()
+
+        Optional<String> lunchUrl = feed.getData().stream()
                 .filter(after(expectedMenuPublishDate(restaurant)))
                 .filter(withKeyWords(restaurant))
                 .findFirst()
                 .flatMap(this::toPermalink);
+
+        lunchUrl.ifPresentOrElse(
+                url -> log.info("Found lunch menu url for {}: {}", restaurant.getName(), url),
+                () -> log.info("Lunch menu for {} not found", restaurant.getName()));
+
+        return lunchUrl;
     }
 
     private Predicate<Post> after(ZonedDateTime time) {
