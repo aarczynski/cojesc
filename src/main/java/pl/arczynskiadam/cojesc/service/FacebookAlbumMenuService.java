@@ -1,5 +1,6 @@
 package pl.arczynskiadam.cojesc.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.FacebookApiClient;
 import pl.arczynskiadam.cojesc.client.facebook.graphapi.dto.album.Album;
@@ -24,6 +25,7 @@ import static java.time.temporal.ChronoUnit.HOURS;
 import static java.util.stream.Collectors.toList;
 import static pl.arczynskiadam.cojesc.util.UrlUtil.toUrl;
 
+@Slf4j
 @Service
 public class FacebookAlbumMenuService {
     private FacebookApiClient facebookClient;
@@ -41,7 +43,14 @@ public class FacebookAlbumMenuService {
                 .map(getAlbumPhotos())
                 .flatMap(getPhotosData())
                 .collect(toList());
-        return findNewestLunchMenuImageLink(images, restaurant);
+
+        Optional<String> lunchUrl = findNewestLunchMenuImageLink(images, restaurant);
+
+        lunchUrl.ifPresentOrElse(
+                url -> log.info("Found lunch menu url for {}: {}", restaurant.getName(), url),
+                () -> log.info("Lunch menu for {} not found", restaurant.getName()));
+
+        return lunchUrl;
     }
 
     private Predicate<Album> albumToSearch(FacebookAlbumRestaurant restaurant) {

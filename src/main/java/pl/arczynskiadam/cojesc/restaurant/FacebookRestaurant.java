@@ -10,4 +10,5 @@ import lombok.ToString;
 public abstract class FacebookRestaurant extends Restaurant {
     private String facebookId;
     private String[] menuKeyWords;
+    private String cssClass;
 }

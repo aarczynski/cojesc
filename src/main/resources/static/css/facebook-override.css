@@ -1,3 +1,4 @@
+/* setka */
 ._30q- {
     background-size: cover;
     padding-bottom: 37%;
@@ -20,7 +21,7 @@
 ._3uhg {
     display: none;
 }
-._5s6c._5s6c, ._5s6c {
+._5s6c {
     font-family: Georgia, serif;
     letter-spacing: normal;
 }
@@ -30,4 +31,21 @@
 }
 ._4yxo {
     font-weight: 600;
+}
+
+/* bez lukru */
+.l_c3pyo2v0u, .i_c3pynyi2f {
+    display: none;
+}
+._1dwg, ._1w_m, ._q7o {
+    background-color: white;
+    text-align: left;
+    padding: 10px;
+}
+.uiScaledImageContainer {
+    width: 100% !important;
+    text-align: center;
+}
+._5pbx, .userContent ._3576 {
+    text-align: justify;
 }

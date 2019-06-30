@@ -35,20 +35,22 @@ public class MenuService {
     public Optional<String> findLunchMenu(Restaurant restaurant) {
         log.info("Lunch menu for {} not found in cache - downloading from the Internet", restaurant.getName());
         if (restaurant instanceof FacebookAlbumRestaurant) {
-            return facebookAlbumMenuService.getLunchMenuImageLink((FacebookAlbumRestaurant) restaurant)
+            FacebookAlbumRestaurant r = (FacebookAlbumRestaurant) restaurant;
+            return facebookAlbumMenuService.getLunchMenuImageLink(r)
                     .map(imgUrl -> String.format("<img src=\"%s\"/>", imgUrl));
         }
         if (restaurant instanceof FacebookFeedRestaurant) {
-            return facebookFeedMenuService.getLunchMenuLink((FacebookFeedRestaurant) restaurant)
-                    .map(getFirstByCssClass("_4-u2 _39j6 _4-u8"));
+            FacebookFeedRestaurant r = (FacebookFeedRestaurant) restaurant;
+            return facebookFeedMenuService.getLunchMenuLink(r)
+                    .map(getFirstByCssClass(r.getCssClass()));
         }
         if (restaurant instanceof WwwRestaurant) {
             var r = (WwwRestaurant) restaurant;
             return Optional.of(String.join("", htmlRetrieveService.fetchByCssClass(toUrl(r.getWwwAddress()), r.getCssClass())));
         }
 
-        log.info("Lunch menu for {} not found in the Internet", restaurant);
-        return Optional.empty();
+        log.error("Unsupported restaurant type: {}", restaurant.getClass());
+        throw new RuntimeException("Unsupported restaurant type");
     }
 
     private Function<String, String> getFirstByCssClass(String cssClass) {
