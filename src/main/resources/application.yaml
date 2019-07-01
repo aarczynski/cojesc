@@ -45,8 +45,8 @@ cojesc:
         menu-key-words: ['menu lunchowe']
         menu-duration: 7 # days
         cssClass: _4-u2 _39j6 _4-u8
-      - name: Bez Lukru
-        facebook-id: bezlukruwroclaw
-        menu-key-words: ['#lunch']
-        menu-duration: 1 # days
-        cssClass: _5pcr userContentWrapper
+#      - name: Bez Lukru
+#        facebook-id: bezlukruwroclaw
+#        menu-key-words: ['photos/a.544505692413852/1128496724014743']
+#        menu-duration: 1 # days
+#        cssClass: _5pcr userContentWrapper
