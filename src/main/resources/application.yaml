@@ -26,7 +26,7 @@ cojesc:
         menu-duration: 6 # days
       - name: Sukiennice 7
         facebook-id: sukiennice7restaurant
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads', 'Cover Photos']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
       - name: Pod Latarniami
