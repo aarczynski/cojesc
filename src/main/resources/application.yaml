@@ -9,10 +9,6 @@ cojesc:
         wwwAddress: http://www.chlopskiejadlo.pl/pl/lunch-dnia/
         cssClass: fusion-fullwidth
         menu-duration: 7 # days
-      - name: Restauracja Patio
-        wwwAddress: https://www.restauracjapatio.eu/menu/lunch-dnia
-        cssClass: content--text
-        menu-duration: 7 # days
     fbAlbumRestaurants:
       - name: Wrocławska
         facebook-id: wroclawska.wroclaw
