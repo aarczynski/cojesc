@@ -9,10 +9,6 @@ cojesc:
         wwwAddress: http://www.chlopskiejadlo.pl/pl/lunch-dnia/
         cssClass: fusion-fullwidth
         menu-duration: 7 # days
-      - name: Restauracja Patio
-        wwwAddress: https://www.restauracjapatio.eu/menu/lunch-dnia
-        cssClass: content--text
-        menu-duration: 7 # days
     fbAlbumRestaurants:
       - name: Wrocławska
         facebook-id: wroclawska.wroclaw
@@ -39,14 +35,14 @@ cojesc:
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 6 # days
+      - name: Campo Modern Grill
+        facebook-id: campomoderngrill
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['modern', 'grill', 'zestaw', 'lunchowy']
+        menu-duration: 7 # days
     fbFeedRestaurants:
       - name: Setka
         facebook-id: setka.bar
         menu-key-words: ['menu lunchowe']
         menu-duration: 7 # days
         cssClass: _4-u2 _39j6 _4-u8
-#      - name: Bez Lukru
-#        facebook-id: bezlukruwroclaw
-#        menu-key-words: ['photos/a.544505692413852/1128496724014743']
-#        menu-duration: 1 # days
-#        cssClass: _5pcr userContentWrapper
