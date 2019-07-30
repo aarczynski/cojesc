@@ -35,6 +35,11 @@ cojesc:
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 6 # days
+      - name: Campo Modern Grill
+        facebook-id: campomoderngrill
+        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
+        menu-key-words: ['modern', 'grill', 'zestaw', 'lunchowy']
+        menu-duration: 7 # days
     fbFeedRestaurants:
       - name: Setka
         facebook-id: setka.bar
