@@ -17,6 +17,20 @@
     background-color: antiquewhite;
     margin-bottom: 10px;
 }
+#footer {
+    font-size: 1.3em;
+    background-color: darkgray;
+    border: black 2px solid;
+    padding: 8px;
+    margin: 0 5px;
+}
+#footer .email {
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 0.8em;
+}
+#footer > div {
+    border-bottom: 1px dotted black;
+}
 
 /* bootstrap overrides */
 
