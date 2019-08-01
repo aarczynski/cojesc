@@ -22,7 +22,7 @@
     background-color: darkgray;
     border: black 2px solid;
     padding: 8px;
-    margin: 0 5px;
+    margin: 0 5px 5px 5px;
 }
 #footer .email {
     font-family: 'DejaVu Sans Mono', monospace;
