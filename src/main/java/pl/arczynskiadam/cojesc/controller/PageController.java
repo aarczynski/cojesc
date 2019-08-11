@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class HomePageController {
+public class PageController {
 
     @GetMapping("/")
     public String home() {
@@ -17,5 +17,10 @@ public class HomePageController {
     @GetMapping("/cojesc")
     public String cojesc() {
         return "forward:/";
+    }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "privacy-policy";
     }
 }
