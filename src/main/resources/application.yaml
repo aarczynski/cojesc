@@ -18,7 +18,7 @@ cojesc:
       - name: Mama Manousch
         facebook-id: mama.manousch
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['wtorek', 'środa', 'czwartek', 'piątek']
+        menu-key-words: ['wtorek', 'środa', 'piątek']
         menu-duration: 6 # days
       - name: Sukiennice 7
         facebook-id: sukiennice7restaurant
@@ -30,19 +30,19 @@ cojesc:
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
-      - name: Doctors' Bar
-        facebook-id: 226124174506353
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['lunch', 'menu']
-        menu-duration: 6 # days
       - name: Campo Modern Grill
         facebook-id: campomoderngrill
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['modern', 'grill', 'zestaw', 'lunchowy']
         menu-duration: 7 # days
     fbFeedRestaurants:
+      - name: Doctors' Bar
+        facebook-id: 226124174506353
+        menu-key-words: ['wtorek', 'środa', 'piątek']
+        menu-duration: 7 # days
+        cssClass: _5pbx userContent _3576
       - name: Setka
         facebook-id: setka.bar
-        menu-key-words: ['menu lunchowe']
+        menu-key-words: ['lunchami']
         menu-duration: 7 # days
         cssClass: _5pbx userContent _3576
