@@ -25,17 +25,17 @@ cojesc:
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads', 'Cover Photos']
         menu-key-words: ['lunch', 'menu']
         menu-duration: 7 # days
-      - name: Pod Latarniami
-        facebook-id: podlatarniami
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['lunch', 'menu']
-        menu-duration: 7 # days
       - name: Campo Modern Grill
         facebook-id: campomoderngrill
         facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
         menu-key-words: ['modern', 'grill', 'zestaw', 'lunchowy']
         menu-duration: 7 # days
     fbFeedRestaurants:
+      - name: Pod Latarniami
+        facebook-id: podlatarniami
+        menu-key-words: ['lunche']
+        menu-duration: 7 # days
+        cssClass: _5pbx userContent _3576
       - name: Doctors' Bar
         facebook-id: 226124174506353
         menu-key-words: ['wtorek', 'środa', 'piątek']
