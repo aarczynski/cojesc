@@ -1,4 +1,34 @@
 logging.level.org.springframework.cache: TRACE
 cojesc:
+  restaurants:
+    - id: wroclawska
+      name: Wrocławska
+      menuDuration: 7d
+      menuUr: https://www.facebook.com/pg/wroclawska.wroclaw/posts
+    - id: setka
+      name: Setka Bar
+      menuDuration: 7d
+      menuUr: https://www.facebook.com/pg/Setka.Bar/posts/
+    - id: mamamanousch
+      name: Mama Manoush
+      menuDuration: 6d
+      menuUr: https://www.facebook.com/pg/mama.manousch/posts
+    - id: podlatarniami
+      name: Pod Latarniami
+      menuDuration: 6d
+      menuUr: https://www.facebook.com/pg/podlatarniami/posts
+    - id: doctorsbar
+      name: Doctor's Bar
+      menuDuration: 6d
+      menuUr: https://www.facebook.com/pg/Doctors-Bar-226124174506353/posts
+    - id: p2
+      name: P2
+      menuDuration: 7d
+      menuUr: https://www.facebook.com/pg/P2.dinner.bar/posts
+    - id: campo
+      name: Campo Modern Grill
+      menuDuration: 7d
+      menuUr: https://www.facebook.com/pg/campomoderngrill/posts
+
   cache:
     eviction: 0 0 0 * * *
