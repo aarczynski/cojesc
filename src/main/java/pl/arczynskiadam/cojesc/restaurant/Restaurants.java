@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "cojesc.restaurants")
+@ConfigurationProperties(prefix = "cojesc")
 public class Restaurants {
     private List<Restaurant> restaurants = Collections.emptyList();
 

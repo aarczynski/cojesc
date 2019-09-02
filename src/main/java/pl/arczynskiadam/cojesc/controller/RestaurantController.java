@@ -16,12 +16,12 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping("/restaurants")
-public class LunchMenuController {
+public class RestaurantController {
 
     private MenuService menuService;
     private Restaurants restaurants;
 
-    public LunchMenuController(MenuService menuService, Restaurants restaurants) {
+    public RestaurantController(MenuService menuService, Restaurants restaurants) {
         this.menuService = menuService;
         this.restaurants = restaurants;
     }

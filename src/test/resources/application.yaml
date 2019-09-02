@@ -1,6 +1,10 @@
 cojesc:
   cache:
     eviction: 0 0 0 * * *
+  restaurants:
+    - name: Test Restaurant
+      menuDuration: 1d
+      menuUr: https://some-url.com
 spring:
   main:
     allow-bean-definition-overriding: true

@@ -14,8 +14,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@WebMvcTest(controllers = [ LunchMenuController ])
-class LunchMenuControllerSpec extends Specification {
+@WebMvcTest(controllers = [ RestaurantController ])
+class RestaurantControllerSpec extends Specification {
 
     @Autowired
     private MockMvc mockMvc
