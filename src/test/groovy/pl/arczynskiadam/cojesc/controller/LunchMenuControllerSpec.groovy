@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import pl.arczynskiadam.cojesc.restaurant.FacebookAlbumRestaurant
+import pl.arczynskiadam.cojesc.restaurant.Restaurant
 import pl.arczynskiadam.cojesc.restaurant.Restaurants
 import pl.arczynskiadam.cojesc.service.MenuService
 import spock.lang.Specification
@@ -27,10 +27,9 @@ class LunchMenuControllerSpec extends Specification {
     private Restaurants restaurants = Mock()
 
     void setup() {
-        restaurants.getByName(_) >> new FacebookAlbumRestaurant()
         restaurants.getAll() >> [
-                new FacebookAlbumRestaurant(name: 'test-restaurant-1'),
-                new FacebookAlbumRestaurant(name: 'test-restaurant-2')
+                new Restaurant(name: 'test-restaurant-1'),
+                new Restaurant(name: 'test-restaurant-2')
         ]
     }
 

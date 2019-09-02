@@ -1,5 +1,4 @@
 cojesc:
-  http.client.facebook.url: http://localhost:8090
   cache:
     eviction: 0 0 0 * * *
 spring:

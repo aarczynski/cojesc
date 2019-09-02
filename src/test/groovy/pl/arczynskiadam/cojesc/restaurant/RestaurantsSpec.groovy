@@ -7,14 +7,10 @@ class RestaurantsSpec extends Specification {
 
     @Subject
     public static final RESTAURANTS = new Restaurants(
-            fbAlbumRestaurants: [
-                    new FacebookAlbumRestaurant(name: 'restaurant1')
-            ],
-            fbFeedRestaurants: [
-                    new FacebookFeedRestaurant(name: 'restaurant2')
-            ],
-            wwwRestaurants: [
-                    new WwwRestaurant(name: 'restaurant3')
+            restaurants: [
+                    new Restaurant(name: 'restaurant1'),
+                    new Restaurant(name: 'restaurant2'),
+                    new Restaurant(name: 'restaurant3')
             ]
     )
 

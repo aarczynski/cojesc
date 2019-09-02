@@ -1,48 +1,4 @@
 logging.level.org.springframework.cache: TRACE
 cojesc:
-  http.client.facebook.url: https://graph.facebook.com
   cache:
     eviction: 0 0 0 * * *
-  restaurants:
-    wwwRestaurants:
-      - name: Chłopskie Jadło
-        wwwAddress: http://www.chlopskiejadlo.pl/pl/lunch-dnia/
-        cssClass: fusion-fullwidth
-        menu-duration: 7 # days
-    fbAlbumRestaurants:
-      - name: Wrocławska
-        facebook-id: wroclawska.wroclaw
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['lunch', 'menu']
-        menu-duration: 7 # days
-      - name: Mama Manousch
-        facebook-id: mama.manousch
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['wtorek', 'środa', 'piątek']
-        menu-duration: 6 # days
-      - name: Sukiennice 7
-        facebook-id: sukiennice7restaurant
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads', 'Cover Photos']
-        menu-key-words: ['lunch', 'menu']
-        menu-duration: 7 # days
-      - name: Campo Modern Grill
-        facebook-id: campomoderngrill
-        facebook-albums-to-search: ['Timeline Photos', 'Mobile Uploads']
-        menu-key-words: ['modern', 'grill', 'zestaw', 'lunchowy']
-        menu-duration: 7 # days
-    fbFeedRestaurants:
-      - name: Pod Latarniami
-        facebook-id: podlatarniami
-        menu-key-words: ['lunche']
-        menu-duration: 7 # days
-        cssClass: _5pbx userContent _3576
-      - name: Doctors' Bar
-        facebook-id: 226124174506353
-        menu-key-words: ['wtorek', 'środa', 'piątek']
-        menu-duration: 7 # days
-        cssClass: _5pbx userContent _3576
-      - name: Setka
-        facebook-id: setka.bar
-        menu-key-words: ['lunchami']
-        menu-duration: 7 # days
-        cssClass: _5pbx userContent _3576

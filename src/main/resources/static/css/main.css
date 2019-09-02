@@ -31,12 +31,6 @@
 #footer > div {
     border-bottom: 1px dotted black;
 }
-#privacy-policy {
-    background-color: darkgray;
-    border: black 2px solid;
-    padding: 8px;
-    margin: 5px;
-}
 
 /* bootstrap overrides */
 

@@ -3,7 +3,8 @@ package pl.arczynskiadam.cojesc.restaurant;
 import lombok.Data;
 
 @Data
-public abstract class Restaurant {
+public class Restaurant {
     private String name;
     private int menuDuration;
+    private String menuUr;
 }

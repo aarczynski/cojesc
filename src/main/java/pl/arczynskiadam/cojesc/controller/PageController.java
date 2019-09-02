@@ -18,9 +18,4 @@ public class PageController {
     public String cojesc() {
         return "forward:/";
     }
-
-    @GetMapping("/privacy-policy")
-    public String privacyPolicy() {
-        return "privacy-policy";
-    }
 }

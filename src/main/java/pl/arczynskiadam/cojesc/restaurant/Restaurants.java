@@ -7,26 +7,15 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
 
 @Data
 @Component
 @ConfigurationProperties(prefix = "cojesc.restaurants")
 public class Restaurants {
-    private List<FacebookAlbumRestaurant> fbAlbumRestaurants = Collections.emptyList();
-    private List<FacebookFeedRestaurant> fbFeedRestaurants = Collections.emptyList();
-    private List<WwwRestaurant> wwwRestaurants = Collections.emptyList();
+    private List<Restaurant> restaurants = Collections.emptyList();
 
     public List<Restaurant> getAll() {
-        return Stream.of(
-                fbAlbumRestaurants.stream(),
-                fbFeedRestaurants.stream(),
-                wwwRestaurants.stream()
-        ).reduce(Stream::concat).
-                orElseGet(Stream::empty)
-                .collect(toUnmodifiableList());
+        return restaurants;
     }
 
     public Restaurant getByName(String name) {

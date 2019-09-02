@@ -1,3 +1,1 @@
 cojesc.client.google.cloudvision.key-path: file:/app/google-api-key.json
-cojesc.client.facebook.graphapi.appId: @FACEBOOK-APP-ID@
-cojesc.client.facebook.graphapi.secret: @FACEBOOK-APP-SECRET@
