@@ -11,7 +11,6 @@ import pl.arczynskiadam.cojesc.service.MenuService;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
@@ -27,16 +26,14 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<String> supportedRestaurants() {
-        return restaurants.getAll().stream()
-                .map(Restaurant::getName)
-                .collect(toList());
+    public List<Restaurant> supportedRestaurants() {
+        return restaurants.getAll();
     }
 
     @GetMapping("/{restaurant}/lunch")
     public ResponseEntity<String> lunchMenu(@PathVariable("restaurant") String restaurant) {
         return menuService
-                .findLunchMenu(restaurants.getByName(restaurant))
+                .findLunchMenu(restaurants.getById(restaurant.toLowerCase()))
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(NOT_FOUND));
     }

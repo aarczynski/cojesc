@@ -8,18 +8,18 @@ class RestaurantsSpec extends Specification {
     @Subject
     public static final RESTAURANTS = new Restaurants(
             restaurants: [
-                    new Restaurant(name: 'restaurant1'),
-                    new Restaurant(name: 'restaurant2'),
-                    new Restaurant(name: 'restaurant3')
+                    new Restaurant(id: 'restaurant1'),
+                    new Restaurant(id: 'restaurant2'),
+                    new Restaurant(id: 'restaurant3')
             ]
     )
 
     def "should find restaurant by name"() {
         when:
-        def restaurant = RESTAURANTS.getByName('restaurant1')
+        def restaurant = RESTAURANTS.getById('restaurant1')
 
         then:
-        restaurant.name == 'restaurant1'
+        restaurant.id == 'restaurant1'
     }
 
     def "should find all restaurants"() {
@@ -27,6 +27,6 @@ class RestaurantsSpec extends Specification {
         def restaurants = RESTAURANTS.getAll()
 
         then:
-        restaurants*.name == ['restaurant1', 'restaurant2', 'restaurant3']
+        restaurants*.id == ['restaurant1', 'restaurant2', 'restaurant3']
     }
 }

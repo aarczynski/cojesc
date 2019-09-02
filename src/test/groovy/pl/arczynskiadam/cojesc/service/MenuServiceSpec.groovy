@@ -15,7 +15,7 @@ import spock.mock.DetachedMockFactory
 @SpringBootTest(classes = [ CoJescApplication, MockServicesConfig])
 class MenuServiceSpec extends Specification {
 
-    private static final Restaurant TEST_RESTAURANT = new Restaurant(name: 'test restaurant')
+    private static final Restaurant TEST_RESTAURANT = new Restaurant(id: 'test restaurant')
 
     @Subject
     @Autowired

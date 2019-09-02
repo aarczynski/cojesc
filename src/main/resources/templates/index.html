@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/facebook-override.css">
 
     <title>Cojesc</title>
 </head>
@@ -17,7 +18,7 @@
 <div id="vue-app">
     <div class="row" v-for="i in rowCount">
         <div class="col-sm" v-for="r in restaurantCountInRow(i)">
-            <restaurant v-bind:name="r"></restaurant>
+            <restaurant v-bind:id="r.id" v-bind:name="r.name"></restaurant>
         </div>
     </div>
     <div id="footer">
@@ -31,7 +32,7 @@
 
 <script>
     Vue.component('restaurant', {
-        props: ['name'],
+        props: ['id', 'name'],
         data() {
             return {
                 lunch: `Ładuję lunch menu ${this.name}...`
@@ -39,7 +40,7 @@
         },
         methods: {
             getLunchMenu() {
-                axios.get(`/restaurants/${this.name}/lunch`)
+                axios.get(`/restaurants/${this.id}/lunch`)
                     .then(response => {
                         this.lunch = response.data;
                     })
@@ -53,7 +54,7 @@
             }
         },
         mounted() {
-            this.getLunchMenu(this.name);
+            this.getLunchMenu(this);
         },
         template: `
             <div class="lunch-container">

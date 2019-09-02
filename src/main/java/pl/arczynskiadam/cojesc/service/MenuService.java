@@ -21,7 +21,7 @@ public class MenuService {
         this.menuRetrieveService = menuRetrieveService;
     }
 
-    @Cacheable(cacheNames = { CACHE_NAME }, key = "#restaurant.name", unless = "#result == null")
+    @Cacheable(cacheNames = { CACHE_NAME }, key = "#restaurant.id", unless = "#result == null")
     public Optional<String> findLunchMenu(Restaurant restaurant) {
         log.info("Lunch menu for {} not found in cache - downloading from the Internet", restaurant.getName());
         return menuRetrieveService.findLunchMenu(restaurant);

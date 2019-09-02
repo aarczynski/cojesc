@@ -2,7 +2,8 @@ cojesc:
   cache:
     eviction: 0 0 0 * * *
   restaurants:
-    - name: Test Restaurant
+    - id: TestRestaurant
+      name: Test Restaurant
       menuDuration: 1d
       menuUr: https://some-url.com
 spring:

@@ -18,11 +18,11 @@ public class Restaurants {
         return restaurants;
     }
 
-    public Restaurant getByName(String name) {
+    public Restaurant getById(String id) {
         return getAll().stream()
-                .filter(r -> r.getName().equals(name))
+                .filter(r -> r.getId().equals(id))
                 .findFirst()
-                .orElseThrow(noSuchRestaurantException(name));
+                .orElseThrow(noSuchRestaurantException(id));
     }
 
     private Supplier<RuntimeException> noSuchRestaurantException(String name) {

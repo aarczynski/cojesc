@@ -28,8 +28,8 @@ class RestaurantControllerSpec extends Specification {
 
     void setup() {
         restaurants.getAll() >> [
-                new Restaurant(name: 'test-restaurant-1'),
-                new Restaurant(name: 'test-restaurant-2')
+                new Restaurant(id: 'test-restaurant-1'),
+                new Restaurant(id: 'test-restaurant-2')
         ]
     }
 
@@ -66,7 +66,7 @@ class RestaurantControllerSpec extends Specification {
                 .andExpect(status().isNotFound())
     }
 
-    def "should return all restaurant names"() {
+    def "should return all restaurant ids"() {
         when:
         def result = mockMvc.perform(
                 get("/restaurants")
@@ -75,6 +75,6 @@ class RestaurantControllerSpec extends Specification {
         then:
         result
                 .andExpect(status().isOk())
-                .andExpect(content().string('["test-restaurant-1","test-restaurant-2"]'))
+                .andExpect(content().string('[{"id":"test-restaurant-1"},{"id":"test-restaurant-2"}]'))
     }
 }
