@@ -41,6 +41,14 @@ public class GoogleOcrClient {
         return foundWords.containsAll(requiredWords);
     }
 
+    public double imageContainsKeywordsScore(URL imageUrl, String... keywords) {
+        var foundWords = processImage(imageUrl).getResponses(0).getTextAnnotationsList().stream()
+                .map(a -> a.getDescription().toLowerCase())
+                .collect(toList());
+
+        return foundWords.size() / keywords.length;
+    }
+
     private BatchAnnotateImagesResponse processImage(URL url)  {
         // Instantiates a client
         try (ImageAnnotatorClient vision = ImageAnnotatorClient.create(imageAnnotatorSettings())) {

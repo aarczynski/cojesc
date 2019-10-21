@@ -2,7 +2,7 @@
     background-color: white;
 }
 
-.l_c3pyo2v0u, .i_c3pynyi2f, .text_exposed_hide, ._52ju {
+.l_c3pyo2v0u, .i_c3pynyi2f, .text_exposed_hide, ._52ju, ._7f6e {
     display: none !important;
 }
 img {
@@ -20,4 +20,16 @@ img {
 ._2a2q {
     overflow: hidden;
     position: relative;
+}
+.uiScaledImageContainer {
+    width: auto !important;
+    width: auto !important;
+}
+.scaledImageFitWidth, .scaledImageFitHeight {
+    width: 100% !important;
+    height: auto !important;
+}
+.spotlight {
+    width: 100% !important;
+    height: auto !important;
 }
